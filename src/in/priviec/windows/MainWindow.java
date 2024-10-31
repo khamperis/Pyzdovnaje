@@ -108,13 +108,11 @@ public class MainWindow extends JFrame {
 			tabs.addTab(" ", loginPanel);
 			tabs.setIconAt(1, homeIcon);
 			tabs.removeTabAt(0);
-//			loginWin = null;
-			
-			core.peer.stop();
-			core.messageWindow.frame.dispose();
-			loginWin.frame.dispose();
-			aboutWindow.frame.dispose();
 
+			core.peer.stop();
+
+			disposeAllWindows();
+			
 			setTitle("Minto");
 
 			snd.playSound("/sounds/LOGOUT.WAV", false);
@@ -123,7 +121,20 @@ public class MainWindow extends JFrame {
 		}
 	}
 
+	public void disposeAllWindows() {
+		if (core.messageWindow != null && core.messageWindow.frame != null) {
+			core.messageWindow.frame.dispose();
+			core.messageWindow = null;
+		}
+
+		if (loginWin != null && loginWin.frame != null) {
+			loginWin.frame.dispose();
+			loginWin = null;
+		}
+	}
+	
 	public void logIn() {
+		snd = new Sound();
 		ImageIcon contactsOnlineImage = loadIcon("toolbar/CONTACT_BIG.png");
 
 		JPanel homePanel = new JPanel();
@@ -132,8 +143,6 @@ public class MainWindow extends JFrame {
 		ImageIcon contactsIcon = loadIcon("toolbar/CONTACT.png");
 		JLabel contactsAvailable = new JLabel(contactsOnlineImage);
 		JLabel noContactsAvailable = new JLabel("You have no users in your contacts list.");
-
-		snd = new Sound();
 
 		tabs.removeTabAt(0);
 		tabs.addTab("Start", homePanel);
@@ -144,13 +153,7 @@ public class MainWindow extends JFrame {
 		contactsAvailable.setForeground(Color.BLUE.darker());
 		contactsAvailable.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-//		JLabel contactsOnlineImg = new JLabel(contactsOnlineImage);
-//		
-//		contactsAvailable.setBounds(50, 50, 50, 50);
-//		homePanel.add(contactsOnlineImg);
 		contactsAvailable.setText("0 Contacts Online");
-//		contactsAvailable.setPreferredSize(new Dimension(2, 50));
-//		contactsAvailable.setBounds(5, 5, 5, 5);
 		homePanel.add(contactsAvailable);
 
 		contactsPanel.setLayout(new BorderLayout());
@@ -191,7 +194,10 @@ public class MainWindow extends JFrame {
 		JMenu help = new JMenu("Help");
 		JMenu file = new JMenu("File");
 
-		file.add(createMenuItem("Send message", e -> core.showMessageWindow(), true));
+		file.add(createMenuItem("Send message", e -> {
+			if(core.isLoggedIn)
+				core.showMessageWindow();
+		}, true));
 		file.add(createMenuItem("Log Off", e -> logOff(), true));
 		file.add(createMenuItem("Close", e -> {
 			dispose();
