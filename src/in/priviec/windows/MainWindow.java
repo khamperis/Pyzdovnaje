@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Menu;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
@@ -137,9 +138,57 @@ public class MainWindow extends JFrame {
 		}
 
 		PopupMenu trayPopupMenu = new PopupMenu();
-		MenuItem action = new MenuItem("Exit");
+		
+		MenuItem quit = new MenuItem("Quit");
+		MenuItem invisible = new MenuItem("Invisible");
+		MenuItem online = new MenuItem("Online");
+		MenuItem away = new MenuItem("Away");
+		MenuItem busy = new MenuItem("Busy");
 
-		action.addActionListener(new ActionListener() {
+		Menu changeStatus = new Menu("Change Status");
+		
+		if(!core.isLoggedIn) {
+			changeStatus.setEnabled(false);
+		} else {
+			changeStatus.setEnabled(true);
+		}
+		
+		changeStatus.add(invisible);
+		changeStatus.add(online);
+		changeStatus.add(away);
+		changeStatus.add(busy);
+		
+		changeStatus.add(quit);
+		
+		invisible.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				core.userStatus = "OFFLINE";
+			}
+		});
+
+		online.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				core.userStatus = "ONLINE";
+			}
+		});
+		
+		away.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				core.userStatus = "AWAY";
+			}
+		});
+		
+		busy.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				core.userStatus = "BUSY";
+			}
+		});
+		
+		quit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (core.isLoggedIn)
@@ -148,8 +197,9 @@ public class MainWindow extends JFrame {
 			}
 		});
 
-		trayPopupMenu.add(action);
-
+		trayPopupMenu.add(quit);
+		trayPopupMenu.add(changeStatus);
+		
 		if (trayIcon != null)
 			tray.remove(trayIcon);
 

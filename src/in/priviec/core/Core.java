@@ -14,6 +14,8 @@ public class Core {
 	public String username;
 	public Peer peer;
 
+	public int listeningPort = 1515;
+
 	public void init() {
 		userStatus = "OFFLINE";
 		isLoggedIn = false;
@@ -23,8 +25,6 @@ public class Core {
 		this.mainWin = mainWin;
 	}
 
-	public int listeningPort = 1515;
-
 	public void logIn() {
 		snd = new Sound();
 		userStatus = "ONLINE";
@@ -33,7 +33,7 @@ public class Core {
 
 		peer = new Peer(listeningPort, messageWindow);
 		peer.start();
-		System.out.println("listening on " + listeningPort);
+		System.out.println("Listening on " + listeningPort);
 
 		snd.playSound("/sounds/LOGIN.WAV", false);
 	}
