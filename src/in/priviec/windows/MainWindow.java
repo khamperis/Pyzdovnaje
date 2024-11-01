@@ -261,8 +261,10 @@ public class MainWindow extends JFrame {
 		file.add(createMenuItem("Log Off", e -> logOff(), true));
 		file.add(createMenuItem("Close", e -> {
 			dispose();
-			if (core.isLoggedIn)
+			if (core.isLoggedIn) {
+				snd = core.snd;
 				snd.playSound("/sounds/LOGOUT.WAV", true);
+			}
 
 			System.exit(0);
 		}, true));
