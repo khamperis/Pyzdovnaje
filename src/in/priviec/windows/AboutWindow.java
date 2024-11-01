@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 public class AboutWindow extends Canvas {
 	private static final long serialVersionUID = 1L;
 	public JFrame frame;
-	
+
 	public void open() {
 		frame = new JFrame("About Minto");
 		AboutWindow aw = new AboutWindow();
@@ -46,7 +46,7 @@ public class AboutWindow extends Canvas {
 
 			@Override
 			public void windowClosing(WindowEvent e) {
-				
+
 			}
 
 			@Override

@@ -120,15 +120,20 @@ public class MainWindow extends JFrame {
 
 		Image statusImage = null;
 		if (core.userStatus == "OFFLINE") {
-			statusImage = Toolkit.getDefaultToolkit().getImage("res/status/OFFLINE.png");
+			statusImage = Toolkit.getDefaultToolkit()
+					.getImage(getClass().getClassLoader().getResource("status/OFFLINE.png"));
 		} else if (core.userStatus == "INVISIBLE") {
-			statusImage = Toolkit.getDefaultToolkit().getImage("res/status/INVISIBLE.png");
+			statusImage = Toolkit.getDefaultToolkit()
+					.getImage(getClass().getClassLoader().getResource("status/INVISIBLE.png"));
 		} else if (core.userStatus == "ONLINE") {
-			statusImage = Toolkit.getDefaultToolkit().getImage("res/status/ONLINE.png");
+			statusImage = Toolkit.getDefaultToolkit()
+					.getImage(getClass().getClassLoader().getResource("status/ONLINE.png"));
 		} else if (core.userStatus == "AWAY") {
-			statusImage = Toolkit.getDefaultToolkit().getImage("res/status/AWAY.png");
+			statusImage = Toolkit.getDefaultToolkit()
+					.getImage(getClass().getClassLoader().getResource("status/AWAY.png"));
 		} else if (core.userStatus == "BUSY") {
-			statusImage = Toolkit.getDefaultToolkit().getImage("res/status/BUSY.png");
+			statusImage = Toolkit.getDefaultToolkit()
+					.getImage(getClass().getClassLoader().getResource("status/BUSY.png"));
 		}
 
 		PopupMenu trayPopupMenu = new PopupMenu();
