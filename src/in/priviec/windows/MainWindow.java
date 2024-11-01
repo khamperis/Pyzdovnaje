@@ -1,9 +1,17 @@
 package in.priviec.windows;
 
+import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
+import java.awt.SystemTray;
+import java.awt.Toolkit;
+import java.awt.TrayIcon;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -37,6 +45,7 @@ public class MainWindow extends JFrame {
 	LoginWindow loginWin;
 	Sound snd;
 	Core core;
+	TrayIcon trayIcon;
 	AboutWindow aboutWindow = new AboutWindow();
 
 	public MainWindow() {
@@ -99,10 +108,60 @@ public class MainWindow extends JFrame {
 		setLocation(100, 100);
 
 		setVisible(true);
+
+		updateSystemTray();
+	}
+
+	private void updateSystemTray() {
+		SystemTray tray = SystemTray.getSystemTray();
+		if (!SystemTray.isSupported()) {
+			return;
+		}
+
+		Image statusImage = null;
+		if (core.userStatus == "OFFLINE") {
+			statusImage = Toolkit.getDefaultToolkit().getImage("res/status/OFFLINE.png");
+		} else if (core.userStatus == "INVISIBLE") {
+			statusImage = Toolkit.getDefaultToolkit().getImage("res/status/INVISIBLE.png");
+		} else if (core.userStatus == "ONLINE") {
+			statusImage = Toolkit.getDefaultToolkit().getImage("res/status/ONLINE.png");
+		} else if (core.userStatus == "AWAY") {
+			statusImage = Toolkit.getDefaultToolkit().getImage("res/status/AWAY.png");
+		} else if (core.userStatus == "BUSY") {
+			statusImage = Toolkit.getDefaultToolkit().getImage("res/status/BUSY.png");
+		}
+
+		PopupMenu trayPopupMenu = new PopupMenu();
+		MenuItem action = new MenuItem("Exit");
+
+		action.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (core.isLoggedIn)
+					logOff();
+				System.exit(0);
+			}
+		});
+
+		trayPopupMenu.add(action);
+
+		if (trayIcon != null)
+			tray.remove(trayIcon);
+
+		trayIcon = new TrayIcon(statusImage, null, trayPopupMenu);
+		trayIcon.setImageAutoSize(true);
+
+		try {
+			tray.add(trayIcon);
+		} catch (AWTException awtException) {
+			awtException.printStackTrace();
+		}
 	}
 
 	public void logOff() {
 		if (core.isLoggedIn) {
+			snd = core.snd;
+			core.userStatus = "OFFLINE";
 			core.isLoggedIn = false;
 			tabs.removeTabAt(1);
 			tabs.addTab(" ", loginPanel);
@@ -112,9 +171,9 @@ public class MainWindow extends JFrame {
 			core.peer.stop();
 
 			disposeAllWindows();
-			
-			setTitle("Minto");
 
+			setTitle("Minto");
+			updateSystemTray();
 			snd.playSound("/sounds/LOGOUT.WAV", false);
 		} else {
 			return;
@@ -132,9 +191,8 @@ public class MainWindow extends JFrame {
 			loginWin = null;
 		}
 	}
-	
+
 	public void logIn() {
-		snd = new Sound();
 		ImageIcon contactsOnlineImage = loadIcon("toolbar/CONTACT_BIG.png");
 
 		JPanel homePanel = new JPanel();
@@ -181,7 +239,9 @@ public class MainWindow extends JFrame {
 				tabs.setSelectedIndex(1);
 			}
 		});
+
 		setTitle("Minto - Logged in to " + core.username);
+		updateSystemTray();
 	}
 
 	private ImageIcon loadIcon(String location) {
@@ -195,7 +255,7 @@ public class MainWindow extends JFrame {
 		JMenu file = new JMenu("File");
 
 		file.add(createMenuItem("Send message", e -> {
-			if(core.isLoggedIn)
+			if (core.isLoggedIn)
 				core.showMessageWindow();
 		}, true));
 		file.add(createMenuItem("Log Off", e -> logOff(), true));

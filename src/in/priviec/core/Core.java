@@ -6,7 +6,7 @@ import in.priviec.windows.MessageWindow;
 
 public class Core {
 	private MainWindow mainWin;
-	private Sound snd;
+	public Sound snd;
 	public MessageWindow messageWindow;
 
 	public String userStatus;
@@ -15,7 +15,7 @@ public class Core {
 	public Peer peer;
 
 	public void init() {
-		userStatus = "Offline";
+		userStatus = "OFFLINE";
 		isLoggedIn = false;
 	}
 
@@ -27,7 +27,7 @@ public class Core {
 
 	public void logIn() {
 		snd = new Sound();
-		userStatus = "Online";
+		userStatus = "ONLINE";
 		isLoggedIn = true;
 		mainWin.logIn();
 
