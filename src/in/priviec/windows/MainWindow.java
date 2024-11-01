@@ -120,25 +120,31 @@ public class MainWindow extends JFrame {
 		}
 
 		Image statusImage = null;
-		if (core.userStatus == "OFFLINE") {
+		switch (core.userStatus) {
+		case "OFFLINE":
 			statusImage = Toolkit.getDefaultToolkit()
 					.getImage(getClass().getClassLoader().getResource("status/OFFLINE.png"));
-		} else if (core.userStatus == "INVISIBLE") {
+			break;
+		case "INVISIBLE":
 			statusImage = Toolkit.getDefaultToolkit()
 					.getImage(getClass().getClassLoader().getResource("status/INVISIBLE.png"));
-		} else if (core.userStatus == "ONLINE") {
+			break;
+		case "ONLINE":
 			statusImage = Toolkit.getDefaultToolkit()
 					.getImage(getClass().getClassLoader().getResource("status/ONLINE.png"));
-		} else if (core.userStatus == "AWAY") {
+			break;
+		case "AWAY":
 			statusImage = Toolkit.getDefaultToolkit()
 					.getImage(getClass().getClassLoader().getResource("status/AWAY.png"));
-		} else if (core.userStatus == "BUSY") {
+			break;
+		case "BUSY":
 			statusImage = Toolkit.getDefaultToolkit()
 					.getImage(getClass().getClassLoader().getResource("status/BUSY.png"));
+			break;
 		}
 
 		PopupMenu trayPopupMenu = new PopupMenu();
-		
+
 		MenuItem quit = new MenuItem("Quit");
 		MenuItem invisible = new MenuItem("Invisible");
 		MenuItem online = new MenuItem("Online");
@@ -146,24 +152,24 @@ public class MainWindow extends JFrame {
 		MenuItem busy = new MenuItem("Busy");
 
 		Menu changeStatus = new Menu("Change Status");
-		
-		if(!core.isLoggedIn) {
+
+		if (!core.isLoggedIn) {
 			changeStatus.setEnabled(false);
 		} else {
 			changeStatus.setEnabled(true);
 		}
-		
+
 		changeStatus.add(invisible);
 		changeStatus.add(online);
 		changeStatus.add(away);
 		changeStatus.add(busy);
-		
+
 		changeStatus.add(quit);
-		
+
 		invisible.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				core.userStatus = "OFFLINE";
+				core.userStatus = "INVISIBLE";
 			}
 		});
 
@@ -173,21 +179,21 @@ public class MainWindow extends JFrame {
 				core.userStatus = "ONLINE";
 			}
 		});
-		
+
 		away.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				core.userStatus = "AWAY";
 			}
 		});
-		
+
 		busy.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				core.userStatus = "BUSY";
 			}
 		});
-		
+
 		quit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -199,7 +205,7 @@ public class MainWindow extends JFrame {
 
 		trayPopupMenu.add(quit);
 		trayPopupMenu.add(changeStatus);
-		
+
 		if (trayIcon != null)
 			tray.remove(trayIcon);
 
