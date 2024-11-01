@@ -5,6 +5,8 @@ import in.priviec.windows.MainWindow;
 import in.priviec.windows.MessageWindow;
 
 public class Core {
+	public String verNumber = "0.0.1";
+	
 	private MainWindow mainWin;
 	public Sound snd;
 	public MessageWindow messageWindow;

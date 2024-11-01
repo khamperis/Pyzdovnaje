@@ -94,7 +94,7 @@ public class MainWindow extends JFrame {
 			}
 		});
 
-		setTitle("Minto");
+		setTitle(String.format("Minto %s", core.verNumber));
 		topPanel.setLayout(new BorderLayout());
 		topPanel.add(createMenuBar(), BorderLayout.NORTH);
 		topPanel.add(createToolBar(), BorderLayout.NORTH);
@@ -300,8 +300,7 @@ public class MainWindow extends JFrame {
 				tabs.setSelectedIndex(1);
 			}
 		});
-
-		setTitle("Minto - Logged in to " + core.username);
+		setTitle(String.format("Minto %s - Logged in to %s", core.verNumber, core.username));
 		updateSystemTray();
 	}
 
