@@ -16,6 +16,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.net.URL;
 
 import javax.swing.Box;
@@ -94,6 +96,20 @@ public class MainWindow extends JFrame {
 		setLocation(100, 100);
 
 		setVisible(true);
+
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				Options options = new Options();
+				options.saveOptions();
+				if (core.isLoggedIn && Options.playSounds) {
+					snd = core.snd;
+					snd.playSound("/sounds/LOGOUT.WAV", true);
+				}
+
+				System.exit(0);
+			}
+		});
 
 		updateSystemTray();
 	}
