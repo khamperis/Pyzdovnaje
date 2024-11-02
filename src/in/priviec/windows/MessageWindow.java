@@ -16,10 +16,12 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import in.priviec.core.Core;
+import in.priviec.core.Options;
 import in.priviec.core.Sound;
 
 public class MessageWindow {
 	Core core;
+	Sound snd;
 	public JFrame frame;
 
 	public MessageWindow(Core core) {
@@ -100,13 +102,13 @@ public class MessageWindow {
 		});
 	}
 
-	Sound snd = new Sound();
-
 	public void appendMessage(String message, boolean playSound) {
 		textArea.append(message + "\n");
 		textArea.setCaretPosition(textArea.getDocument().getLength());
 
-		if (playSound)
+		if (playSound && Options.playSounds) {
+			snd = new Sound();
 			snd.playSound("/sounds/IM.WAV", false);
+		}
 	}
 }

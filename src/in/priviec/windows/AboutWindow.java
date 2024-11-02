@@ -20,6 +20,7 @@ public class AboutWindow extends Canvas {
 		frame.setSize(250, 250);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setVisible(true);
 
 		frame.addWindowListener(new WindowAdapter() {
@@ -31,7 +32,7 @@ public class AboutWindow extends Canvas {
 	}
 
 	public void paint(Graphics g) {
-		g.drawString("Rimdo!", 105, 105);
+		g.drawString("Pyzdovnaje!", (getWidth() / 2) - 34, (getHeight() / 2));
 		g.dispose();
 	}
 }

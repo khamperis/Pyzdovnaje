@@ -8,6 +8,7 @@ public class Core {
 	public String verNumber = "0.0.1";
 
 	private MainWindow mainWin;
+	public Options options;
 	public Sound snd;
 	public MessageWindow messageWindow;
 
@@ -19,6 +20,8 @@ public class Core {
 	public int listeningPort = 1515;
 
 	public void init() {
+		options = new Options();
+		options.readOptions();
 		userStatus = "OFFLINE";
 		isLoggedIn = false;
 	}
@@ -28,7 +31,6 @@ public class Core {
 	}
 
 	public void logIn() {
-		snd = new Sound();
 		userStatus = "ONLINE";
 		isLoggedIn = true;
 		mainWin.logIn();
@@ -37,7 +39,10 @@ public class Core {
 		peer.start();
 		System.out.println("Listening on " + listeningPort);
 
-		snd.playSound("/sounds/LOGIN.WAV", false);
+		if (Options.playSounds) {
+			snd = new Sound();
+			snd.playSound("/sounds/LOGIN.WAV", false);
+		}
 	}
 
 	public void showMessageWindow() {

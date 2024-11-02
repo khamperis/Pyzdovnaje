@@ -33,6 +33,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import in.priviec.core.Core;
+import in.priviec.core.Options;
 import in.priviec.core.Sound;
 
 public class MainWindow extends JFrame {
@@ -137,11 +138,10 @@ public class MainWindow extends JFrame {
 
 		Menu changeStatus = new Menu("Change Status");
 
-		if (!core.isLoggedIn) {
+		if (!core.isLoggedIn)
 			changeStatus.setEnabled(false);
-		} else {
+		else
 			changeStatus.setEnabled(true);
-		}
 
 		changeStatus.add(invisible);
 		changeStatus.add(online);
@@ -198,14 +198,13 @@ public class MainWindow extends JFrame {
 
 		try {
 			tray.add(trayIcon);
-		} catch (AWTException awtException) {
-			awtException.printStackTrace();
+		} catch (AWTException e) {
+			e.printStackTrace();
 		}
 	}
 
 	public void logOff() {
 		if (core.isLoggedIn) {
-			snd = core.snd;
 			core.userStatus = "OFFLINE";
 			core.isLoggedIn = false;
 			tabs.removeTabAt(1);
@@ -219,7 +218,10 @@ public class MainWindow extends JFrame {
 
 			setTitle("Minto");
 			updateSystemTray();
-			snd.playSound("/sounds/LOGOUT.WAV", false);
+			if (Options.playSounds) {
+				snd = core.snd;
+				snd.playSound("/sounds/LOGOUT.WAV", false);
+			}
 		} else {
 			return;
 		}
@@ -286,10 +288,15 @@ public class MainWindow extends JFrame {
 			if (core.isLoggedIn)
 				core.showMessageWindow();
 		}, true));
+		file.add(createMenuItem("Options", e -> {
+			new OptionsWindow();
+		}, true));
 		file.add(createMenuItem("Log Off", e -> logOff(), true));
 		file.add(createMenuItem("Close", e -> {
 			dispose();
-			if (core.isLoggedIn) {
+			Options options = new Options();
+			options.saveOptions();
+			if (core.isLoggedIn && Options.playSounds) {
 				snd = core.snd;
 				snd.playSound("/sounds/LOGOUT.WAV", true);
 			}
