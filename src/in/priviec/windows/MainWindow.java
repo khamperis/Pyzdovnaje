@@ -14,8 +14,8 @@ import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.net.URL;
 
 import javax.swing.Box;
@@ -69,28 +69,12 @@ public class MainWindow extends JFrame {
 		loginLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		loginPanel.add(loginLabel);
 
-		loginLabel.addMouseListener(new MouseListener() {
+		loginLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (loginWin == null || loginWin.frame == null) {
 					loginWin = new LoginWindow(core);
 				}
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
 			}
 		});
 
@@ -278,23 +262,7 @@ public class MainWindow extends JFrame {
 		contactsPanel.setLayout(new BorderLayout());
 		contactsPanel.add(noContactsAvailable, BorderLayout.NORTH);
 
-		contactsAvailable.addMouseListener(new MouseListener() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
-
+		contactsAvailable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				tabs.setSelectedIndex(1);

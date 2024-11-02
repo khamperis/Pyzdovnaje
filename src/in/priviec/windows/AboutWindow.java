@@ -2,8 +2,8 @@ package in.priviec.windows;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 
@@ -22,41 +22,10 @@ public class AboutWindow extends Canvas {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 
-		frame.addWindowListener(new WindowListener() {
-
-			@Override
-			public void windowOpened(WindowEvent e) {
-
-			}
-
-			@Override
-			public void windowIconified(WindowEvent e) {
-
-			}
-
-			@Override
-			public void windowDeiconified(WindowEvent e) {
-
-			}
-
+		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowDeactivated(WindowEvent e) {
 				frame.dispose();
-			}
-
-			@Override
-			public void windowClosing(WindowEvent e) {
-
-			}
-
-			@Override
-			public void windowClosed(WindowEvent e) {
-
-			}
-
-			@Override
-			public void windowActivated(WindowEvent e) {
-
 			}
 		});
 	}
