@@ -31,7 +31,6 @@ public class Core {
 	}
 
 	public void logIn() {
-		userStatus = "ONLINE";
 		isLoggedIn = true;
 		mainWin.logIn();
 

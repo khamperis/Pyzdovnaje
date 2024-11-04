@@ -21,6 +21,7 @@ import java.awt.event.WindowEvent;
 import java.net.URL;
 
 import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -29,6 +30,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
@@ -46,6 +48,11 @@ public class MainWindow extends JFrame {
 	JTabbedPane tabs = new JTabbedPane();
 	JPanel loginPanel = new JPanel();
 	JPanel topPanel = new JPanel();
+	JPanel callButtonsPanel = new JPanel();
+	JPanel statusPanel = new JPanel();
+	JLabel statusLabel = new JLabel();
+	JLabel startCall;
+	JLabel endCall;
 	LoginWindow loginWin;
 	Sound snd;
 	Core core;
@@ -89,6 +96,9 @@ public class MainWindow extends JFrame {
 
 		topPanel.add(tabs);
 
+		setLayout(new BorderLayout());
+		add(bottomPanel(), BorderLayout.SOUTH);
+		pack();
 		getContentPane().add(topPanel);
 		setSize(315, 480);
 		setMinimumSize(new Dimension(220, 270));
@@ -114,6 +124,35 @@ public class MainWindow extends JFrame {
 		updateSystemTray();
 	}
 
+	private JPanel bottomPanel() {
+		ImageIcon startCallImage = loadIcon("other/STARTCALL_DISABLED.png");
+		ImageIcon endCallImage = loadIcon("other/ENDCALL_DISABLED.png");
+		startCall = new JLabel(startCallImage);
+		endCall = new JLabel(endCallImage);
+
+		JPanel bottom = new JPanel();
+		bottom.setLayout(new BoxLayout(bottom, BoxLayout.Y_AXIS));
+
+		statusLabel.setText(core.userStatus);
+		statusPanel.setLayout(new BorderLayout());
+		statusPanel.setPreferredSize(new Dimension(getWidth(), 20));
+		statusPanel.add(statusLabel, BorderLayout.WEST);
+
+		callButtonsPanel.add(startCall);
+		callButtonsPanel.add(Box.createHorizontalStrut(70));
+		callButtonsPanel.add(endCall);
+		bottom.add(callButtonsPanel);
+
+		bottom.add(new JSeparator());
+		bottom.add(statusPanel);
+
+		return bottom;
+	}
+
+	private void updateStatusBar() {
+		statusLabel.setText(core.userStatus);
+	}
+	
 	private void updateSystemTray() {
 		SystemTray tray = SystemTray.getSystemTray();
 		if (!SystemTray.isSupported()) {
@@ -159,24 +198,26 @@ public class MainWindow extends JFrame {
 		else
 			changeStatus.setEnabled(true);
 
-		changeStatus.add(invisible);
 		changeStatus.add(online);
+		changeStatus.add(invisible);
 		changeStatus.add(away);
 		changeStatus.add(busy);
 
 		changeStatus.add(quit);
 
-		invisible.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				core.userStatus = "INVISIBLE";
-			}
-		});
-
 		online.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				core.userStatus = "ONLINE";
+				updateStatusBar();
+			}
+		});
+
+		invisible.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				core.userStatus = "INVISIBLE";
+				updateStatusBar();
 			}
 		});
 
@@ -184,6 +225,7 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				core.userStatus = "AWAY";
+				updateStatusBar();
 			}
 		});
 
@@ -191,6 +233,7 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				core.userStatus = "BUSY";
+				updateStatusBar();
 			}
 		});
 
@@ -203,8 +246,8 @@ public class MainWindow extends JFrame {
 			}
 		});
 
-		trayPopupMenu.add(quit);
 		trayPopupMenu.add(changeStatus);
+		trayPopupMenu.add(quit);
 
 		if (trayIcon != null)
 			tray.remove(trayIcon);
@@ -227,6 +270,7 @@ public class MainWindow extends JFrame {
 			tabs.addTab(" ", loginPanel);
 			tabs.setIconAt(1, homeIcon);
 			tabs.removeTabAt(0);
+			updateStatusBar();
 
 			core.peer.stop();
 
@@ -256,6 +300,8 @@ public class MainWindow extends JFrame {
 	}
 
 	public void logIn() {
+		core.userStatus = "ONLINE";
+		updateStatusBar();
 		ImageIcon contactsOnlineImage = loadIcon("toolbar/CONTACT_BIG.png");
 
 		JPanel homePanel = new JPanel();
