@@ -70,7 +70,6 @@ public class MainWindow extends JFrame {
 		contactsIcon = loadIcon("toolbar/CONTACT.png");
 		tabs = new JTabbedPane();
 		tabs.addTab(" ", loginPanel);
-		ImageIcon homeIcon = loadIcon("toolbar/HOUSE.png");
 		tabs.setIconAt(0, homeIcon);
 
 		JLabel loginLabel = new JLabel("Click here to log in");
@@ -315,7 +314,6 @@ public class MainWindow extends JFrame {
 		JPanel homePanel = new JPanel();
 		JPanel contactsPanel = new JPanel();
 		ImageIcon homeIcon = loadIcon("toolbar/HOUSE.png");
-		ImageIcon contactsIcon = loadIcon("toolbar/CONTACT.png");
 		JLabel contactsAvailable = new JLabel(contactsOnlineImage);
 		JLabel noContactsAvailable = new JLabel("You have no users in your contacts list.");
 
