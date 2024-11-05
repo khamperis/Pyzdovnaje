@@ -32,6 +32,7 @@ public class Core {
 
 	public void logIn() {
 		isLoggedIn = true;
+		userStatus = "ONLINE";
 		mainWin.logIn();
 
 		peer = new Peer(listeningPort, messageWindow);

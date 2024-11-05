@@ -125,8 +125,6 @@ public class MainWindow extends JFrame {
 				System.exit(0);
 			}
 		});
-
-		updateSystemTray();
 	}
 
 	private JPanel bottomPanel() {
@@ -172,28 +170,7 @@ public class MainWindow extends JFrame {
 			return;
 		}
 
-		switch (core.userStatus) {
-		case "OFFLINE":
-			statusTrayImage = Toolkit.getDefaultToolkit()
-					.getImage(getClass().getClassLoader().getResource("status/OFFLINE.png"));
-			break;
-		case "INVISIBLE":
-			statusTrayImage = Toolkit.getDefaultToolkit()
-					.getImage(getClass().getClassLoader().getResource("status/INVISIBLE.png"));
-			break;
-		case "ONLINE":
-			statusTrayImage = Toolkit.getDefaultToolkit()
-					.getImage(getClass().getClassLoader().getResource("status/ONLINE.png"));
-			break;
-		case "AWAY":
-			statusTrayImage = Toolkit.getDefaultToolkit()
-					.getImage(getClass().getClassLoader().getResource("status/AWAY.png"));
-			break;
-		case "BUSY":
-			statusTrayImage = Toolkit.getDefaultToolkit()
-					.getImage(getClass().getClassLoader().getResource("status/BUSY.png"));
-			break;
-		}
+		setTrayIconImage();
 
 		PopupMenu trayPopupMenu = new PopupMenu();
 
@@ -217,32 +194,40 @@ public class MainWindow extends JFrame {
 		online.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				core.userStatus = "ONLINE";
-				updateStatusItems();
+				if (core.isLoggedIn) {
+					core.userStatus = "ONLINE";
+					updateStatusItems();
+				}
 			}
 		});
 
 		invisible.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				core.userStatus = "INVISIBLE";
-				updateStatusItems();
+				if (core.isLoggedIn) {
+					core.userStatus = "INVISIBLE";
+					updateStatusItems();
+				}
 			}
 		});
 
 		away.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				core.userStatus = "AWAY";
-				updateStatusItems();
+				if (core.isLoggedIn) {
+					core.userStatus = "AWAY";
+					updateStatusItems();
+				}
 			}
 		});
 
 		busy.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				core.userStatus = "BUSY";
-				updateStatusItems();
+				if (core.isLoggedIn) {
+					core.userStatus = "BUSY";
+					updateStatusItems();
+				}
 			}
 		});
 
@@ -258,16 +243,42 @@ public class MainWindow extends JFrame {
 		trayPopupMenu.add(changeStatus);
 		trayPopupMenu.add(quit);
 
-		if (trayIcon != null)
-			tray.remove(trayIcon);
+		if (trayIcon != null) {
+			trayIcon.setImage(statusTrayImage);
+			trayIcon.setPopupMenu(trayPopupMenu);
+		} else {
+			trayIcon = new TrayIcon(statusTrayImage, null, trayPopupMenu);
+			trayIcon.setImageAutoSize(true);
+			try {
+				tray.add(trayIcon);
+			} catch (AWTException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
-		trayIcon = new TrayIcon(statusTrayImage, null, trayPopupMenu);
-		trayIcon.setImageAutoSize(true);
-
-		try {
-			tray.add(trayIcon);
-		} catch (AWTException e) {
-			e.printStackTrace();
+	private void setTrayIconImage() {
+		switch (core.userStatus) {
+		case "OFFLINE":
+			statusTrayImage = Toolkit.getDefaultToolkit()
+					.getImage(getClass().getClassLoader().getResource("status/OFFLINE.png"));
+			break;
+		case "INVISIBLE":
+			statusTrayImage = Toolkit.getDefaultToolkit()
+					.getImage(getClass().getClassLoader().getResource("status/INVISIBLE.png"));
+			break;
+		case "ONLINE":
+			statusTrayImage = Toolkit.getDefaultToolkit()
+					.getImage(getClass().getClassLoader().getResource("status/ONLINE.png"));
+			break;
+		case "AWAY":
+			statusTrayImage = Toolkit.getDefaultToolkit()
+					.getImage(getClass().getClassLoader().getResource("status/AWAY.png"));
+			break;
+		case "BUSY":
+			statusTrayImage = Toolkit.getDefaultToolkit()
+					.getImage(getClass().getClassLoader().getResource("status/BUSY.png"));
+			break;
 		}
 	}
 
@@ -286,7 +297,7 @@ public class MainWindow extends JFrame {
 			disposeAllWindows();
 
 			setTitle("Minto");
-			updateSystemTray();
+			updateStatusItems();
 			if (Options.playSounds) {
 				snd = core.snd;
 				snd.playSound("/sounds/LOGOUT.WAV", false);
@@ -309,9 +320,8 @@ public class MainWindow extends JFrame {
 	}
 
 	public void logIn() {
-		core.userStatus = "ONLINE";
-		updateStatusItems();
 		ImageIcon contactsOnlineImage = loadIcon("toolbar/CONTACT_BIG.png");
+		updateStatusItems();
 
 		JPanel homePanel = new JPanel();
 		JPanel contactsPanel = new JPanel();
@@ -342,7 +352,6 @@ public class MainWindow extends JFrame {
 			}
 		});
 		setTitle(String.format("Minto %s - Logged in to %s", core.verNumber, core.username));
-		updateSystemTray();
 	}
 
 	private ImageIcon loadIcon(String location) {
