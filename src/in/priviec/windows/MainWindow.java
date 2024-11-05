@@ -205,10 +205,7 @@ public class MainWindow extends JFrame {
 
 		Menu changeStatus = new Menu("Change Status");
 
-		if (!core.isLoggedIn)
-			changeStatus.setEnabled(false);
-		else
-			changeStatus.setEnabled(true);
+		changeStatus.setEnabled(core.isLoggedIn);
 
 		changeStatus.add(online);
 		changeStatus.add(invisible);
