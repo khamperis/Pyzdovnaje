@@ -99,7 +99,7 @@ public class MessageWindow {
 		textArea.setCaretPosition(textArea.getDocument().getLength());
 
 		if (playSound && Options.playSounds) {
-			snd = new Sound();
+			snd = core.snd;
 			snd.playSound("/sounds/IM.WAV", false);
 		}
 	}
