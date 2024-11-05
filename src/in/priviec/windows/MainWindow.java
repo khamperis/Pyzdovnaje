@@ -33,6 +33,7 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -45,6 +46,8 @@ public class MainWindow extends JFrame {
 
 	ImageIcon homeIcon;
 	ImageIcon contactsIcon;
+	ImageIcon statusBarStatusIcon;
+	Image statusTrayImage;
 	JTabbedPane tabs = new JTabbedPane();
 	JPanel loginPanel = new JPanel();
 	JPanel topPanel = new JPanel();
@@ -53,6 +56,7 @@ public class MainWindow extends JFrame {
 	JLabel statusLabel = new JLabel();
 	JLabel startCall;
 	JLabel endCall;
+	JLabel statusIconLabel;
 	LoginWindow loginWin;
 	Sound snd;
 	Core core;
@@ -96,6 +100,7 @@ public class MainWindow extends JFrame {
 
 		topPanel.add(tabs);
 
+		updateStatusItems();
 		setLayout(new BorderLayout());
 		add(bottomPanel(), BorderLayout.SOUTH);
 		pack();
@@ -127,20 +132,25 @@ public class MainWindow extends JFrame {
 	private JPanel bottomPanel() {
 		ImageIcon startCallImage = loadIcon("other/STARTCALL_DISABLED.png");
 		ImageIcon endCallImage = loadIcon("other/ENDCALL_DISABLED.png");
+
 		startCall = new JLabel(startCallImage);
 		endCall = new JLabel(endCallImage);
 
 		JPanel bottom = new JPanel();
 		bottom.setLayout(new BoxLayout(bottom, BoxLayout.Y_AXIS));
-
-		statusLabel.setText(core.userStatus);
-		statusPanel.setLayout(new BorderLayout());
-		statusPanel.setPreferredSize(new Dimension(getWidth(), 20));
-		statusPanel.add(statusLabel, BorderLayout.WEST);
-
 		callButtonsPanel.add(startCall);
 		callButtonsPanel.add(Box.createHorizontalStrut(70));
 		callButtonsPanel.add(endCall);
+
+		statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.X_AXIS));
+		statusPanel.setPreferredSize(new Dimension(getWidth(), 20));
+		statusLabel.setText(core.userStatus);
+		statusPanel.add(Box.createHorizontalStrut(2));
+		statusPanel.add(statusIconLabel);
+		statusPanel.add(Box.createHorizontalStrut(15));
+		statusPanel.add(new JSeparator(SwingConstants.VERTICAL));
+		statusPanel.add(statusLabel);
+
 		bottom.add(callButtonsPanel);
 
 		bottom.add(new JSeparator());
@@ -149,36 +159,38 @@ public class MainWindow extends JFrame {
 		return bottom;
 	}
 
-	private void updateStatusBar() {
+	private void updateStatusItems() {
+		statusBarStatusIcon = loadIcon("status/" + core.userStatus + ".png");
+		statusIconLabel = new JLabel(statusBarStatusIcon);
 		statusLabel.setText(core.userStatus);
+		updateSystemTray();
 	}
-	
+
 	private void updateSystemTray() {
 		SystemTray tray = SystemTray.getSystemTray();
 		if (!SystemTray.isSupported()) {
 			return;
 		}
 
-		Image statusImage = null;
 		switch (core.userStatus) {
 		case "OFFLINE":
-			statusImage = Toolkit.getDefaultToolkit()
+			statusTrayImage = Toolkit.getDefaultToolkit()
 					.getImage(getClass().getClassLoader().getResource("status/OFFLINE.png"));
 			break;
 		case "INVISIBLE":
-			statusImage = Toolkit.getDefaultToolkit()
+			statusTrayImage = Toolkit.getDefaultToolkit()
 					.getImage(getClass().getClassLoader().getResource("status/INVISIBLE.png"));
 			break;
 		case "ONLINE":
-			statusImage = Toolkit.getDefaultToolkit()
+			statusTrayImage = Toolkit.getDefaultToolkit()
 					.getImage(getClass().getClassLoader().getResource("status/ONLINE.png"));
 			break;
 		case "AWAY":
-			statusImage = Toolkit.getDefaultToolkit()
+			statusTrayImage = Toolkit.getDefaultToolkit()
 					.getImage(getClass().getClassLoader().getResource("status/AWAY.png"));
 			break;
 		case "BUSY":
-			statusImage = Toolkit.getDefaultToolkit()
+			statusTrayImage = Toolkit.getDefaultToolkit()
 					.getImage(getClass().getClassLoader().getResource("status/BUSY.png"));
 			break;
 		}
@@ -209,7 +221,7 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				core.userStatus = "ONLINE";
-				updateStatusBar();
+				updateStatusItems();
 			}
 		});
 
@@ -217,7 +229,7 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				core.userStatus = "INVISIBLE";
-				updateStatusBar();
+				updateStatusItems();
 			}
 		});
 
@@ -225,7 +237,7 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				core.userStatus = "AWAY";
-				updateStatusBar();
+				updateStatusItems();
 			}
 		});
 
@@ -233,7 +245,7 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				core.userStatus = "BUSY";
-				updateStatusBar();
+				updateStatusItems();
 			}
 		});
 
@@ -252,7 +264,7 @@ public class MainWindow extends JFrame {
 		if (trayIcon != null)
 			tray.remove(trayIcon);
 
-		trayIcon = new TrayIcon(statusImage, null, trayPopupMenu);
+		trayIcon = new TrayIcon(statusTrayImage, null, trayPopupMenu);
 		trayIcon.setImageAutoSize(true);
 
 		try {
@@ -270,7 +282,7 @@ public class MainWindow extends JFrame {
 			tabs.addTab(" ", loginPanel);
 			tabs.setIconAt(1, homeIcon);
 			tabs.removeTabAt(0);
-			updateStatusBar();
+			updateStatusItems();
 
 			core.peer.stop();
 
@@ -301,7 +313,7 @@ public class MainWindow extends JFrame {
 
 	public void logIn() {
 		core.userStatus = "ONLINE";
-		updateStatusBar();
+		updateStatusItems();
 		ImageIcon contactsOnlineImage = loadIcon("toolbar/CONTACT_BIG.png");
 
 		JPanel homePanel = new JPanel();
