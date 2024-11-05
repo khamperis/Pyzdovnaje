@@ -2,6 +2,7 @@ package in.priviec.windows;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -73,15 +74,7 @@ public class MessageWindow {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 
-		textField.addKeyListener(new KeyListener() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-			}
-
+		textField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				String msg;
