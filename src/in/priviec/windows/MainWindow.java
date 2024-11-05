@@ -158,9 +158,15 @@ public class MainWindow extends JFrame {
 	}
 
 	private void updateStatusItems() {
-		statusBarStatusIcon = loadIcon("status/" + core.userStatus + ".png");
-		statusIconLabel = new JLabel(statusBarStatusIcon);
 		statusLabel.setText(core.userStatus);
+
+		statusBarStatusIcon = loadIcon("status/" + core.userStatus + ".png");
+		if (statusIconLabel != null) {
+			statusIconLabel.setIcon(statusBarStatusIcon);
+		} else {
+			statusIconLabel = new JLabel(statusBarStatusIcon);
+		}
+
 		updateSystemTray();
 	}
 
