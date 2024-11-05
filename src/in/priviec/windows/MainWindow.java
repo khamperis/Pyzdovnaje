@@ -167,11 +167,16 @@ public class MainWindow extends JFrame {
 			statusIconLabel = new JLabel(statusBarStatusIcon);
 		}
 
-		updateSystemTray();
+		if (Options.createTrayIcon)
+			updateSystemTray();
+		else if (!Options.createTrayIcon && trayIcon != null) {
+			updateSystemTray();
+		}
 	}
 
 	private void updateSystemTray() {
 		SystemTray tray = SystemTray.getSystemTray();
+		tray = SystemTray.getSystemTray();
 		if (!SystemTray.isSupported()) {
 			return;
 		}
@@ -241,7 +246,9 @@ public class MainWindow extends JFrame {
 		trayPopupMenu.add(changeStatus);
 		trayPopupMenu.add(quit);
 
-		if (trayIcon != null) {
+		if (!Options.createTrayIcon && trayIcon != null)
+			tray.remove(trayIcon);
+		else if (trayIcon != null) {
 			trayIcon.setImage(statusTrayImage);
 			trayIcon.setPopupMenu(trayPopupMenu);
 		} else {

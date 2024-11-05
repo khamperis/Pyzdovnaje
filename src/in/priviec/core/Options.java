@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class Options {
 	public static boolean playSounds;
+	public static boolean createTrayIcon;
 
 	private String getPathForOS() {
 		String user = System.getProperty("user.name");
@@ -27,7 +28,8 @@ public class Options {
 		try {
 			writer = new PrintWriter(file);
 			writer.println("playSounds=" + playSounds);
-
+			writer.println("createTrayIcon=" + createTrayIcon);
+			
 			writer.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -46,6 +48,9 @@ public class Options {
 				String option = scanner.nextLine();
 				if (option.startsWith("playSounds=")) {
 					playSounds = Boolean.parseBoolean(option.split("=")[1]);
+				}
+				if (option.startsWith("createTrayIcon=")) {
+					createTrayIcon = Boolean.parseBoolean(option.split("=")[1]);
 				}
 			}
 			scanner.close();

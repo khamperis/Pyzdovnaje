@@ -18,6 +18,7 @@ public class OptionsWindow {
 
 	private void open() {
 		JCheckBox playSoundsBox = new JCheckBox("Play sounds", null, Options.playSounds);
+		JCheckBox createTrayIconBox = new JCheckBox("Create a tray icon", null, Options.createTrayIcon);
 		frame = new JFrame("Options");
 		frame.setResizable(false);
 		frame.setSize(400, 400);
@@ -25,13 +26,22 @@ public class OptionsWindow {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setLayout(new GridLayout(3, 1));
 		frame.add(playSoundsBox);
+		frame.add(createTrayIconBox);
 
 		frame.setVisible(true);
 
+		createTrayIconBox.setToolTipText("Requires a restart to fully take effect");
+		
 		playSoundsBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Options.playSounds = playSoundsBox.isSelected();
+			}
+		});
+		createTrayIconBox.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Options.createTrayIcon = createTrayIconBox.isSelected();
 			}
 		});
 	}
