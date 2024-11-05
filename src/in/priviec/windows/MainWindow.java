@@ -12,7 +12,6 @@ import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.Toolkit;
 import java.awt.TrayIcon;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -202,45 +201,30 @@ public class MainWindow extends JFrame {
 
 		changeStatus.add(quit);
 
-		online.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				core.userStatus = "ONLINE";
-				updateStatusItems();
-			}
+		online.addActionListener(e -> {
+			core.userStatus = "ONLINE";
+			updateStatusItems();
 		});
 
-		invisible.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				core.userStatus = "INVISIBLE";
-				updateStatusItems();
-			}
+		invisible.addActionListener(e -> {
+			core.userStatus = "INVISIBLE";
+			updateStatusItems();
 		});
 
-		away.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				core.userStatus = "AWAY";
-				updateStatusItems();
-			}
+		away.addActionListener(e -> {
+			core.userStatus = "AWAY";
+			updateStatusItems();
 		});
 
-		busy.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				core.userStatus = "BUSY";
-				updateStatusItems();
-			}
+		busy.addActionListener(e -> {
+			core.userStatus = "BUSY";
+			updateStatusItems();
 		});
 
-		quit.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (core.isLoggedIn)
-					logOff();
-				System.exit(0);
-			}
+		quit.addActionListener(e -> {
+			if (core.isLoggedIn)
+				logOff();
+			System.exit(0);
 		});
 
 		trayPopupMenu.add(changeStatus);
