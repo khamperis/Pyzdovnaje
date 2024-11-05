@@ -194,40 +194,32 @@ public class MainWindow extends JFrame {
 		online.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (core.isLoggedIn) {
-					core.userStatus = "ONLINE";
-					updateStatusItems();
-				}
+				core.userStatus = "ONLINE";
+				updateStatusItems();
 			}
 		});
 
 		invisible.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (core.isLoggedIn) {
-					core.userStatus = "INVISIBLE";
-					updateStatusItems();
-				}
+				core.userStatus = "INVISIBLE";
+				updateStatusItems();
 			}
 		});
 
 		away.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (core.isLoggedIn) {
-					core.userStatus = "AWAY";
-					updateStatusItems();
-				}
+				core.userStatus = "AWAY";
+				updateStatusItems();
 			}
 		});
 
 		busy.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (core.isLoggedIn) {
-					core.userStatus = "BUSY";
-					updateStatusItems();
-				}
+				core.userStatus = "BUSY";
+				updateStatusItems();
 			}
 		});
 
