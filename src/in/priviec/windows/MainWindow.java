@@ -313,7 +313,6 @@ public class MainWindow extends JFrame {
 
 		JPanel homePanel = new JPanel();
 		JPanel contactsPanel = new JPanel();
-		ImageIcon homeIcon = loadIcon("toolbar/HOUSE.png");
 		JLabel contactsAvailable = new JLabel(contactsOnlineImage);
 		JLabel noContactsAvailable = new JLabel("You have no users in your contacts list.");
 
