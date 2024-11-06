@@ -56,11 +56,12 @@ public class MainWindow extends JFrame {
 	JLabel startCall;
 	JLabel endCall;
 	JLabel statusIconLabel;
-	LoginWindow loginWin;
 	Sound snd;
 	Core core;
 	TrayIcon trayIcon;
+	LoginWindow loginWin;
 	AboutWindow aboutWindow = new AboutWindow();
+	OptionsWindow optionsWindow;
 
 	public MainWindow() {
 		core = new Core(this);
@@ -334,7 +335,9 @@ public class MainWindow extends JFrame {
 				core.showMessageWindow();
 		}, true));
 		file.add(createMenuItem("Options", e -> {
-			new OptionsWindow();
+			if (optionsWindow == null || optionsWindow.frame == null) {
+				optionsWindow = new OptionsWindow();
+			}
 		}, true));
 		file.add(createMenuItem("Log Off", e -> logOff(), true));
 		file.add(createMenuItem("Close", e -> {

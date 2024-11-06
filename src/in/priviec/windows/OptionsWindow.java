@@ -3,6 +3,8 @@ package in.priviec.windows;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -10,7 +12,7 @@ import javax.swing.JFrame;
 import in.priviec.core.Options;
 
 public class OptionsWindow {
-	private JFrame frame;
+	public JFrame frame;
 
 	public OptionsWindow() {
 		open();
@@ -30,8 +32,14 @@ public class OptionsWindow {
 
 		frame.setVisible(true);
 
-		createTrayIconBox.setToolTipText("Requires a restart to fully take effect");
+		frame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				frame = null;
+			}
+		});
 		
+		createTrayIconBox.setToolTipText("Requires a restart to fully take effect");
+
 		playSoundsBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
