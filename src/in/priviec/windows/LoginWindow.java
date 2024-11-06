@@ -59,6 +59,7 @@ public class LoginWindow {
 		frame.setResizable(false);
 		frame.setSize(572, 588);
 		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setVisible(true);
 
 		button.addActionListener(e -> check());
