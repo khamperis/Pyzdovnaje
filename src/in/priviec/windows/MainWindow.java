@@ -363,6 +363,23 @@ public class MainWindow extends JFrame {
 		JList<Object[]> contactsList = new JList<>(contacts);
 		contactsList.setCellRenderer(renderer);
 
+		contactsList.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					int index = contactsList.locationToIndex(e.getPoint());
+
+					if (index >= 0) {
+						Object[] selectedContact = contacts[index];
+						String contactName = (String) selectedContact[0];
+						String contactStatus = (String) selectedContact[1];
+
+						if (core.isLoggedIn)
+							core.showMessageWindow();
+					}
+				}
+			}
+		});
 		JScrollPane contactsScrollPane = new JScrollPane(contactsList);
 		contactsPanel.add(contactsScrollPane, BorderLayout.CENTER);
 
