@@ -174,7 +174,6 @@ public class MainWindow extends JFrame {
 
 	private void updateSystemTray() {
 		SystemTray tray = SystemTray.getSystemTray();
-		tray = SystemTray.getSystemTray();
 		if (!SystemTray.isSupported()) {
 			return;
 		}
