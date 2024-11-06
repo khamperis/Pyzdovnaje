@@ -245,28 +245,8 @@ public class MainWindow extends JFrame {
 	}
 
 	private void setTrayIconImage() {
-		switch (core.userStatus) {
-		case "OFFLINE":
-			statusTrayImage = Toolkit.getDefaultToolkit()
-					.getImage(getClass().getClassLoader().getResource("status/OFFLINE.png"));
-			break;
-		case "INVISIBLE":
-			statusTrayImage = Toolkit.getDefaultToolkit()
-					.getImage(getClass().getClassLoader().getResource("status/INVISIBLE.png"));
-			break;
-		case "ONLINE":
-			statusTrayImage = Toolkit.getDefaultToolkit()
-					.getImage(getClass().getClassLoader().getResource("status/ONLINE.png"));
-			break;
-		case "AWAY":
-			statusTrayImage = Toolkit.getDefaultToolkit()
-					.getImage(getClass().getClassLoader().getResource("status/AWAY.png"));
-			break;
-		case "BUSY":
-			statusTrayImage = Toolkit.getDefaultToolkit()
-					.getImage(getClass().getClassLoader().getResource("status/BUSY.png"));
-			break;
-		}
+		statusTrayImage = Toolkit.getDefaultToolkit()
+				.getImage(getClass().getClassLoader().getResource("status/" + core.userStatus + ".png"));
 	}
 
 	public void logOff() {
@@ -294,7 +274,7 @@ public class MainWindow extends JFrame {
 		}
 	}
 
-	public void disposeAllWindows() {
+	private void disposeAllWindows() {
 		if (core.messageWindow != null && core.messageWindow.frame != null) {
 			core.messageWindow.frame.dispose();
 			core.messageWindow = null;
