@@ -2,8 +2,6 @@ package in.priviec.windows;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -63,12 +61,7 @@ public class LoginWindow {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 
-		button.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				check();
-			}
-		});
+		button.addActionListener(e -> check());
 
 		userNameField.addKeyListener(new KeyAdapter() {
 			@Override
