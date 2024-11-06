@@ -16,7 +16,7 @@ public class AudioPeer {
 	private int receivePort = 2525;
 	private int bufferSize = 4096;
 	private DatagramSocket sendSocket;
-	DatagramSocket receiveSocket;
+	private DatagramSocket receiveSocket;
 	public boolean inCall = false;
 
 	public synchronized void stop() {

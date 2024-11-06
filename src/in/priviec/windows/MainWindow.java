@@ -3,6 +3,7 @@ package in.priviec.windows;
 import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -21,14 +22,17 @@ import java.net.URL;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
@@ -331,7 +335,36 @@ public class MainWindow extends JFrame {
 		homePanel.add(contactsAvailable);
 
 		contactsPanel.setLayout(new BorderLayout());
-		contactsPanel.add(noContactsAvailable, BorderLayout.NORTH);
+//		contactsPanel.add(noContactsAvailable, BorderLayout.NORTH);
+
+		Object[][] contacts = { { "khamperis", "OFFLINE" }, { "khamperis", "ONLINE" }, { "khamperis", "AWAY" },
+				{ "khamperis", "BUSY" } };
+
+		DefaultListCellRenderer renderer = new DefaultListCellRenderer() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,
+					boolean cellHasFocus) {
+				JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,
+						cellHasFocus);
+				Object[] contact = (Object[]) value;
+				String contactName = (String) contact[0];
+				String contactStatus = (String) contact[1];
+				ImageIcon contactStatusIcon = loadIcon("status/" + contactStatus + ".png");
+
+				label.setHorizontalTextPosition(SwingConstants.RIGHT);
+				label.setIcon(contactStatusIcon);
+				label.setText(contactName);
+				return label;
+			}
+		};
+
+		JList<Object[]> contactsList = new JList<>(contacts);
+		contactsList.setCellRenderer(renderer);
+
+		JScrollPane contactsScrollPane = new JScrollPane(contactsList);
+		contactsPanel.add(contactsScrollPane, BorderLayout.CENTER);
 
 		contactsAvailable.addMouseListener(new MouseAdapter() {
 			@Override
