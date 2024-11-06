@@ -46,6 +46,8 @@ public class MainWindow extends JFrame {
 	ImageIcon homeIcon;
 	ImageIcon contactsIcon;
 	ImageIcon statusBarStatusIcon;
+	ImageIcon startCallIcon;
+	ImageIcon endCallIcon;
 	Image statusTrayImage;
 	JTabbedPane tabs = new JTabbedPane();
 	JPanel loginPanel = new JPanel();
@@ -127,11 +129,26 @@ public class MainWindow extends JFrame {
 	}
 
 	private JPanel bottomPanel() {
-		ImageIcon startCallImage = loadIcon("other/STARTCALL_DISABLED.png");
-		ImageIcon endCallImage = loadIcon("other/ENDCALL_DISABLED.png");
+		startCallIcon = loadIcon("other/STARTCALL_DISABLED.png");
+		endCallIcon = loadIcon("other/ENDCALL_DISABLED.png");
+		startCall = new JLabel(startCallIcon);
+		endCall = new JLabel(endCallIcon);
 
-		startCall = new JLabel(startCallImage);
-		endCall = new JLabel(endCallImage);
+		startCall.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (core.isLoggedIn)
+					core.startCall();
+			}
+		});
+
+		endCall.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (core.isLoggedIn)
+					core.endCall();
+			}
+		});
 
 		JPanel bottom = new JPanel();
 		bottom.setLayout(new BoxLayout(bottom, BoxLayout.Y_AXIS));
@@ -260,6 +277,11 @@ public class MainWindow extends JFrame {
 			tabs.removeTabAt(0);
 			updateStatusItems();
 
+			startCallIcon = loadIcon("other/STARTCALL_DISABLED.png");
+			endCallIcon = loadIcon("other/ENDCALL_DISABLED.png");
+			startCall.setIcon(startCallIcon);
+			endCall.setIcon(endCallIcon);
+
 			core.peer.stop();
 
 			disposeAllWindows();
@@ -317,6 +339,12 @@ public class MainWindow extends JFrame {
 				tabs.setSelectedIndex(1);
 			}
 		});
+
+		startCallIcon = loadIcon("other/STARTCALL_ENABLED.png");
+		endCallIcon = loadIcon("other/ENDCALL_ENABLED.png");
+		startCall.setIcon(startCallIcon);
+		endCall.setIcon(endCallIcon);
+
 		setTitle(String.format("Minto %s - Logged in to %s", core.verNumber, core.username));
 	}
 

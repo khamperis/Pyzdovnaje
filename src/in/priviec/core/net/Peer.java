@@ -122,7 +122,6 @@ public class Peer {
 
 		public synchronized void stop() {
 			if (!sock.isClosed()) {
-
 				running = false;
 				try {
 					sock.close();

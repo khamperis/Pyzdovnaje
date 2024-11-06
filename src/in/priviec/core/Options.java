@@ -29,7 +29,7 @@ public class Options {
 			writer = new PrintWriter(file);
 			writer.println("playSounds=" + playSounds);
 			writer.println("createTrayIcon=" + createTrayIcon);
-			
+
 			writer.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

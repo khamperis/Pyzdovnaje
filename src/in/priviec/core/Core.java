@@ -1,5 +1,6 @@
 package in.priviec.core;
 
+import in.priviec.core.net.AudioPeer;
 import in.priviec.core.net.Peer;
 import in.priviec.windows.MainWindow;
 import in.priviec.windows.MessageWindow;
@@ -16,6 +17,7 @@ public class Core {
 	public boolean isLoggedIn;
 	public String username;
 	public Peer peer;
+	private AudioPeer audioPeer;
 
 	public int listeningPort = 1515;
 
@@ -24,6 +26,15 @@ public class Core {
 		options.readOptions();
 		userStatus = "OFFLINE";
 		isLoggedIn = false;
+		audioPeer = new AudioPeer();
+	}
+
+	public void startCall() {
+		audioPeer.start();
+	}
+
+	public void endCall() {
+		audioPeer.stop();
 	}
 
 	public Core(MainWindow mainWin) {
@@ -50,5 +61,6 @@ public class Core {
 			messageWindow = new MessageWindow(this);
 			peer.setMsgWindow(messageWindow);
 		}
+//		startCall();
 	}
 }

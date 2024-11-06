@@ -83,7 +83,7 @@ public class MessageWindow {
 
 					if (!msg.isEmpty() && msg != " ") {
 						synchronized (this) {
-							core.peer.sendMsg(core.username + ": " + msg, "127.0.0.1", 1516);
+							core.peer.sendMsg(core.username + ": " + msg, "127.0.0.1", 1515);
 							if (!frame.hasFocus())
 								appendMessage(core.username + ": " + textField.getText(), false);
 						}
