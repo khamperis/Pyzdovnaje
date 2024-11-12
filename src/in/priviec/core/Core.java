@@ -61,6 +61,5 @@ public class Core {
 			messageWindow = new MessageWindow(this);
 			peer.setMsgWindow(messageWindow);
 		}
-//		startCall();
 	}
 }

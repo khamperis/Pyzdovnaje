@@ -37,7 +37,7 @@ public class OptionsWindow {
 				frame = null;
 			}
 		});
-		
+
 		createTrayIconBox.setToolTipText("Requires a restart to fully take effect");
 
 		playSoundsBox.addActionListener(new ActionListener() {
