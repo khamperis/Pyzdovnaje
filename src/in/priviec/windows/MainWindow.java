@@ -141,16 +141,26 @@ public class MainWindow extends JFrame {
 		startCall.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (core.isLoggedIn)
+				if (core.isLoggedIn && !core.audioPeer.inCall) {
 					core.startCall();
+					endCallIcon = loadIcon("other/ENDCALL_ENABLED.png");
+					endCall.setIcon(endCallIcon);
+					startCallIcon = loadIcon("other/STARTCALL_DISABLED.png");
+					startCall.setIcon(startCallIcon);
+				}
 			}
 		});
 
 		endCall.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (core.isLoggedIn)
+				if (core.isLoggedIn && core.audioPeer.inCall) {
 					core.endCall();
+					endCallIcon = loadIcon("other/ENDCALL_DISABLED.png");
+					endCall.setIcon(endCallIcon);
+					startCallIcon = loadIcon("other/STARTCALL_ENABLED.png");
+					startCall.setIcon(startCallIcon);
+				}
 			}
 		});
 
@@ -391,9 +401,7 @@ public class MainWindow extends JFrame {
 		});
 
 		startCallIcon = loadIcon("other/STARTCALL_ENABLED.png");
-		endCallIcon = loadIcon("other/ENDCALL_ENABLED.png");
 		startCall.setIcon(startCallIcon);
-		endCall.setIcon(endCallIcon);
 
 		setTitle(String.format("Minto %s - Logged in to %s", core.verNumber, core.username));
 	}

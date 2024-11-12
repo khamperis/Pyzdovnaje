@@ -17,7 +17,7 @@ public class Core {
 	public boolean isLoggedIn;
 	public String username;
 	public Peer peer;
-	private AudioPeer audioPeer;
+	public AudioPeer audioPeer;
 
 	public int listeningPort = 1515;
 
