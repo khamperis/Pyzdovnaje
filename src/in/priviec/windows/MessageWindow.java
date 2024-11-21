@@ -8,7 +8,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -22,9 +21,10 @@ import in.priviec.core.Options;
 import in.priviec.core.Sound;
 
 public class MessageWindow {
-	Core core;
-	Sound snd;
+	private Core core;
+	private Sound snd;
 	public JFrame frame;
+	public JTextArea textArea;
 
 	public MessageWindow(Core core) {
 		this.core = core;
@@ -33,9 +33,6 @@ public class MessageWindow {
 		}
 		open();
 	}
-
-	JLabel chat;
-	public JTextArea textArea;
 
 	private JMenuBar createMenuBar() {
 		JMenuBar menubar = new JMenuBar();

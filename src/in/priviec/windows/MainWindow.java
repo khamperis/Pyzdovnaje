@@ -47,27 +47,27 @@ import in.priviec.core.Sound;
 public class MainWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 
-	ImageIcon homeIcon;
-	ImageIcon contactsIcon;
-	ImageIcon statusBarStatusIcon;
-	ImageIcon startCallIcon;
-	ImageIcon endCallIcon;
-	Image statusTrayImage;
-	JTabbedPane tabs = new JTabbedPane();
-	JPanel loginPanel = new JPanel();
-	JPanel topPanel = new JPanel();
-	JPanel callButtonsPanel = new JPanel();
-	JPanel statusPanel = new JPanel();
-	JLabel statusLabel = new JLabel();
-	JLabel startCall;
-	JLabel endCall;
-	JLabel statusIconLabel;
-	Sound snd;
-	Core core;
-	TrayIcon trayIcon;
-	LoginWindow loginWin;
-	AboutWindow aboutWindow = new AboutWindow();
-	OptionsWindow optionsWindow;
+	private ImageIcon homeIcon;
+	private ImageIcon contactsIcon;
+	private ImageIcon statusBarStatusIcon;
+	private ImageIcon startCallIcon;
+	private ImageIcon endCallIcon;
+	private Image statusTrayImage;
+	private JTabbedPane tabs = new JTabbedPane();
+	private JPanel loginPanel = new JPanel();
+	private JPanel topPanel = new JPanel();
+	private JPanel callButtonsPanel = new JPanel();
+	private JPanel statusPanel = new JPanel();
+	private JLabel statusLabel = new JLabel();
+	private JLabel startCall;
+	private JLabel endCall;
+	private JLabel statusIconLabel;
+	private Sound snd;
+	private Core core;
+	private TrayIcon trayIcon;
+	private LoginWindow loginWin;
+	private AboutWindow aboutWindow = new AboutWindow();
+	private OptionsWindow optionsWindow;
 
 	public MainWindow() {
 		core = new Core(this);

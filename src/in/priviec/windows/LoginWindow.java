@@ -98,7 +98,7 @@ public class LoginWindow {
 			core.username = username;
 			core.logIn();
 			frame.dispose();
-		} else {
+		} else if(Core.IS_DEBUG){
 			System.err.println("username too short or too long or password incorrect!");
 		}
 	}
