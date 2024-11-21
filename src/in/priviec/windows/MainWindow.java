@@ -485,6 +485,9 @@ public class MainWindow extends JFrame {
 	}
 
 	public static void main(String[] args) {
+		if(args.length > 0 && args[0].equals("debug"))
+			Core.IS_DEBUG = true;
+		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
