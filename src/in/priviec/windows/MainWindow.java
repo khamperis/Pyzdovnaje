@@ -384,8 +384,7 @@ public class MainWindow extends JFrame {
 						String contactName = (String) selectedContact[0];
 						String contactStatus = (String) selectedContact[1];
 
-						if (core.isLoggedIn)
-							core.showMessageWindow();
+						core.showMessageWindow();
 					}
 				}
 			}

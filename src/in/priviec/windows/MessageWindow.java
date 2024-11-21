@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -39,7 +41,7 @@ public class MessageWindow {
 		JMenuBar menubar = new JMenuBar();
 		JMenu file = new JMenu("File");
 
-		file.add(createMenuItem("Close", e -> frame.dispose(), true));
+		file.add(createMenuItem("Close", e -> uninitialize(), true));
 
 		menubar.add(file);
 
@@ -92,8 +94,21 @@ public class MessageWindow {
 				}
 			}
 		});
+		
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				uninitialize();
+			}
+		});
 	}
 
+	private void uninitialize() {
+		core.messageWindow = null;
+		frame.dispose();
+		frame = null;
+	}
+	
 	public void appendMessage(String message, boolean playSound) {
 		textArea.append(message + "\n");
 		textArea.setCaretPosition(textArea.getDocument().getLength());

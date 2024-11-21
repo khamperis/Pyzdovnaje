@@ -76,7 +76,6 @@ public class AudioPeer {
 
 			senderThread.start();
 			receiverThread.start();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
