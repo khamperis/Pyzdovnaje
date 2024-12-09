@@ -20,6 +20,7 @@ import in.priviec.core.Core;
 public class LoginWindow {
 	private Core core;
 	public JFrame frame;
+	private DialogWindow dialogWindow;
 	private JTextField userNameField;
 	private JTextField passwordField;
 
@@ -98,8 +99,8 @@ public class LoginWindow {
 			core.username = username;
 			core.logIn();
 			frame.dispose();
-		} else if(Core.IS_DEBUG){
-			System.err.println("username too short or too long or password incorrect!");
+		} else if (dialogWindow == null) {
+			dialogWindow = new DialogWindow("Username too short or long or password incorrect!");
 		}
 	}
 }
