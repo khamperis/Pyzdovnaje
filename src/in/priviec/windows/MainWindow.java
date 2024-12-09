@@ -15,6 +15,7 @@ import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.Toolkit;
 import java.awt.TrayIcon;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -36,6 +37,7 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -73,6 +75,7 @@ public class MainWindow extends JFrame {
 	private LoginWindow loginWin;
 	private AboutWindow aboutWindow = new AboutWindow();
 	private OptionsWindow optionsWindow;
+	private JMenu changeStatus;
 
 	public MainWindow() {
 		core = new Core(this);
@@ -207,6 +210,12 @@ public class MainWindow extends JFrame {
 		else if (!Options.createTrayIcon && trayIcon != null) {
 			updateSystemTray();
 		}
+
+		if (core.isLoggedIn) {
+			changeStatus.setEnabled(true);
+		} else {
+			changeStatus.setEnabled(false);
+		}
 	}
 
 	private void updateSystemTray() {
@@ -311,7 +320,7 @@ public class MainWindow extends JFrame {
 				if (core.snd == null) {
 					snd = core.snd;
 				}
-				
+
 				snd.playSound("/sounds/LOGOUT.WAV", false);
 			}
 		} else {
@@ -423,13 +432,29 @@ public class MainWindow extends JFrame {
 		JMenu help = new JMenu("Help");
 		JMenu file = new JMenu("File");
 
-		file.add(createMenuItem("Send message", e -> {
-			if (core.isLoggedIn)
-				core.showMessageWindow();
+		changeStatus = new JMenu("Change status");
+		changeStatus.add(createMenuItem("Online", e -> {
+			core.userStatus = "ONLINE";
+			updateStatusItems();
 		}, true));
+		changeStatus.add(createMenuItem("Invisible", e -> {
+			core.userStatus = "INVISIBLE";
+			updateStatusItems();
+		}, true));
+		changeStatus.add(createMenuItem("Away", e -> {
+			core.userStatus = "AWAY";
+			updateStatusItems();
+		}, true));
+		changeStatus.add(createMenuItem("Busy", e -> {
+			core.userStatus = "BUSY";
+			updateStatusItems();
+		}, true));
+		file.add(changeStatus);
+		file.addSeparator();
+
 		file.add(createMenuItem("Log Off", e -> logOff(), true));
 		file.addSeparator();
-		file.add(createMenuItem("Options", e -> {
+		file.add(createMenuItem("Options...", e -> {
 			if (optionsWindow == null || optionsWindow.frame == null) {
 				optionsWindow = new OptionsWindow();
 			}
