@@ -430,10 +430,11 @@ public class MainWindow extends JFrame {
 			Options options = new Options();
 			options.saveOptions();
 			
-			if (core.snd == null) {
-				snd = core.snd;
-			}
 			if (core.isLoggedIn && Options.playSounds) {
+				if (core.snd == null) {
+					snd = core.snd;
+				}
+
 				snd.playSound("/sounds/LOGOUT.WAV", true);
 			}
 

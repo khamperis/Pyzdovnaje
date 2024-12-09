@@ -8,7 +8,7 @@ import in.priviec.windows.MessageWindow;
 public class Core {
 	public String verNumber = "0.0.1";
 	public static boolean IS_DEBUG = false;
-	
+
 	private MainWindow mainWin;
 	private Options options;
 	public Sound snd;
@@ -49,12 +49,15 @@ public class Core {
 
 		peer = new Peer(listeningPort, messageWindow);
 		peer.start();
-		
-		if(IS_DEBUG)
+
+		if (IS_DEBUG)
 			System.out.println("Listening on " + listeningPort);
 
 		if (Options.playSounds) {
-			snd = new Sound();
+			if (snd == null) {
+				snd = new Sound();
+			}
+
 			snd.playSound("/sounds/LOGIN.WAV", false);
 		}
 	}
