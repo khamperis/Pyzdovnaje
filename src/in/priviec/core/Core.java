@@ -57,7 +57,7 @@ public class Core {
 			if (snd == null) {
 				snd = new Sound();
 			}
-
+			
 			snd.playSound("/sounds/LOGIN.WAV", false);
 		}
 	}
