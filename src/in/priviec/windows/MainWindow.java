@@ -308,7 +308,10 @@ public class MainWindow extends JFrame {
 			setTitle("Minto");
 			updateStatusItems();
 			if (Options.playSounds) {
-				snd = core.snd;
+				if (core.snd == null) {
+					snd = core.snd;
+				}
+				
 				snd.playSound("/sounds/LOGOUT.WAV", false);
 			}
 		} else {
@@ -446,7 +449,7 @@ public class MainWindow extends JFrame {
 
 			System.exit(0);
 		}, true));
-		
+
 		help.add(createMenuItem("Help", e -> {
 			try {
 				URI reportProblem = new URI("https://github.com/khamperis/Pyzdovnaje");
