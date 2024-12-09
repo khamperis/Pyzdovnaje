@@ -5,8 +5,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Menu;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
@@ -18,6 +20,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import javax.swing.Box;
@@ -419,17 +424,18 @@ public class MainWindow extends JFrame {
 			if (core.isLoggedIn)
 				core.showMessageWindow();
 		}, true));
+		file.add(createMenuItem("Log Off", e -> logOff(), true));
+		file.addSeparator();
 		file.add(createMenuItem("Options", e -> {
 			if (optionsWindow == null || optionsWindow.frame == null) {
 				optionsWindow = new OptionsWindow();
 			}
 		}, true));
-		file.add(createMenuItem("Log Off", e -> logOff(), true));
 		file.add(createMenuItem("Close", e -> {
 			dispose();
 			Options options = new Options();
 			options.saveOptions();
-			
+
 			if (core.isLoggedIn && Options.playSounds) {
 				if (core.snd == null) {
 					snd = core.snd;
@@ -440,6 +446,41 @@ public class MainWindow extends JFrame {
 
 			System.exit(0);
 		}, true));
+		
+		help.add(createMenuItem("Help", e -> {
+			try {
+				URI reportProblem = new URI("https://github.com/khamperis/Pyzdovnaje");
+				Desktop.getDesktop().browse(reportProblem);
+			} catch (URISyntaxException | IOException e1) {
+				e1.printStackTrace();
+			}
+		}, true));
+		help.add(createMenuItem("FAQ", e -> {
+			try {
+				URI reportProblem = new URI("https://github.com/khamperis/Pyzdovnaje/discussions");
+				Desktop.getDesktop().browse(reportProblem);
+			} catch (URISyntaxException | IOException e1) {
+				e1.printStackTrace();
+			}
+		}, true));
+		help.addSeparator();
+		help.add(createMenuItem("Check for Update", e -> {
+			try {
+				URI reportProblem = new URI("https://github.com/khamperis/Pyzdovnaje/releases");
+				Desktop.getDesktop().browse(reportProblem);
+			} catch (URISyntaxException | IOException e1) {
+				e1.printStackTrace();
+			}
+		}, true));
+		help.add(createMenuItem("Report a Problem", e -> {
+			try {
+				URI reportProblem = new URI("https://github.com/khamperis/Pyzdovnaje/issues");
+				Desktop.getDesktop().browse(reportProblem);
+			} catch (URISyntaxException | IOException e1) {
+				e1.printStackTrace();
+			}
+		}, true));
+		help.addSeparator();
 		help.add(createMenuItem("Help", e -> aboutWindow.open(), true));
 
 		menubar.add(file);
@@ -493,6 +534,7 @@ public class MainWindow extends JFrame {
 			Core.IS_DEBUG = true;
 
 		try {
+			UIManager.put("MenuItem.margin", new Insets(-1, 0, -1, 2));
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
 			e.printStackTrace();
