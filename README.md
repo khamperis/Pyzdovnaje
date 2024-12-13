@@ -4,5 +4,5 @@ This project will remain private until i'm no longer afraid to show everyone my 
 2. Fully recreate the UI of Skype 1.0
 3. Make messages End-to-end encrypted
 <p align="center">
-    <img src="PyzdovnajeDemo.png" width="256" height="256" />
+    <img src="PyzdovnajeDemo.png"/>
 </p>
