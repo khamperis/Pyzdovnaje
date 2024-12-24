@@ -23,6 +23,7 @@ public class Core {
 	public int listeningPort = 1515;
 
 	public void init() {
+		snd = new Sound();
 		options = new Options();
 		options.readOptions();
 		userStatus = "OFFLINE";
@@ -54,10 +55,6 @@ public class Core {
 			System.out.println("Listening on " + listeningPort);
 
 		if (Options.playSounds) {
-			if (snd == null) {
-				snd = new Sound();
-			}
-			
 			snd.playSound("/sounds/LOGIN.WAV", false);
 		}
 	}

@@ -132,8 +132,6 @@ public class MainWindow extends JFrame {
 					snd = core.snd;
 					snd.playSound("/sounds/LOGOUT.WAV", true);
 				}
-
-				System.exit(0);
 			}
 		});
 	}
@@ -315,10 +313,9 @@ public class MainWindow extends JFrame {
 			setTitle("Minto");
 			updateStatusItems();
 			if (Options.playSounds) {
-				if (core.snd == null) {
+				if (snd == null) {
 					snd = core.snd;
 				}
-
 				snd.playSound("/sounds/LOGOUT.WAV", false);
 			}
 		} else {
@@ -463,7 +460,7 @@ public class MainWindow extends JFrame {
 			options.saveOptions();
 
 			if (core.isLoggedIn && Options.playSounds) {
-				if (core.snd == null) {
+				if (core.snd != null) {
 					snd = core.snd;
 				}
 

@@ -15,7 +15,6 @@ public class Sound {
 	public void playSound(String location, boolean waitForSound) {
 		try {
 			InputStream audioStream = getClass().getResourceAsStream(location);
-
 			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 			byte[] data = new byte[1024];
 			int bytesRead;

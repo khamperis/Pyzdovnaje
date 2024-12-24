@@ -83,8 +83,10 @@ public class MessageWindow {
 					if (!msg.isEmpty() && msg != " ") {
 						synchronized (this) {
 							core.peer.sendMsg(core.username + ": " + msg, "127.0.0.1", 1515);
-							if (!frame.hasFocus())
+							if (frame.hasFocus())
 								appendMessage(core.username + ": " + textField.getText(), false);
+							else 
+								appendMessage(core.username + ": " + textField.getText(), Options.playSounds);
 						}
 						textField.setText("");
 					}
@@ -110,7 +112,7 @@ public class MessageWindow {
 		textArea.append(message + "\n");
 		textArea.setCaretPosition(textArea.getDocument().getLength());
 
-		if (playSound && Options.playSounds) {
+		if (playSound) {
 			snd = core.snd;
 			snd.playSound("/sounds/IM.WAV", false);
 		}
