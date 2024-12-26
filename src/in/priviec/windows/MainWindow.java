@@ -64,6 +64,7 @@ public class MainWindow extends JFrame {
 	private JPanel callButtonsPanel = new JPanel();
 	private JPanel statusPanel = new JPanel();
 	private JLabel statusLabel = new JLabel();
+	private Options options = new Options();
 	private JLabel startCall;
 	private JLabel endCall;
 	private JLabel statusIconLabel;
@@ -126,7 +127,6 @@ public class MainWindow extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				Options options = new Options();
 				options.saveOptions();
 				if (core.isLoggedIn && Options.playSounds) {
 					snd = core.snd;
@@ -456,7 +456,6 @@ public class MainWindow extends JFrame {
 		}, true));
 		file.add(createMenuItem("Close", e -> {
 			dispose();
-			Options options = new Options();
 			options.saveOptions();
 
 			if (core.isLoggedIn && Options.playSounds) {
