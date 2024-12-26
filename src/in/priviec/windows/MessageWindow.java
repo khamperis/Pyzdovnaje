@@ -28,6 +28,7 @@ public class MessageWindow {
 
 	public MessageWindow(Core core) {
 		this.core = core;
+		snd = core.snd;
 		if (core.username == null) {
 			return;
 		}
@@ -113,7 +114,6 @@ public class MessageWindow {
 		textArea.setCaretPosition(textArea.getDocument().getLength());
 
 		if (playSound) {
-			snd = core.snd;
 			snd.playSound("/sounds/IM.WAV", false);
 		}
 	}

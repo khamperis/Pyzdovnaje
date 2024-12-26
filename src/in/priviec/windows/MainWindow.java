@@ -68,13 +68,13 @@ public class MainWindow extends JFrame {
 	private JLabel startCall;
 	private JLabel endCall;
 	private JLabel statusIconLabel;
-	private Sound snd;
 	private Core core;
 	private TrayIcon trayIcon;
 	private LoginWindow loginWin;
 	private AboutWindow aboutWindow = new AboutWindow();
 	private OptionsWindow optionsWindow;
 	private JMenu changeStatus;
+	public Sound snd;
 
 	public MainWindow() {
 		core = new Core(this);
@@ -129,7 +129,6 @@ public class MainWindow extends JFrame {
 			public void windowClosing(WindowEvent e) {
 				options.saveOptions();
 				if (core.isLoggedIn && Options.playSounds) {
-					snd = core.snd;
 					snd.playSound("/sounds/LOGOUT.WAV", true);
 				}
 			}
@@ -313,9 +312,6 @@ public class MainWindow extends JFrame {
 			setTitle("Minto");
 			updateStatusItems();
 			if (Options.playSounds) {
-				if (snd == null) {
-					snd = core.snd;
-				}
 				snd.playSound("/sounds/LOGOUT.WAV", false);
 			}
 		} else {
@@ -451,7 +447,7 @@ public class MainWindow extends JFrame {
 		file.addSeparator();
 		file.add(createMenuItem("Options...", e -> {
 			if (optionsWindow == null || optionsWindow.frame == null) {
-				optionsWindow = new OptionsWindow();
+				optionsWindow = new OptionsWindow(core);
 			}
 		}, true));
 		file.add(createMenuItem("Close", e -> {
@@ -459,10 +455,6 @@ public class MainWindow extends JFrame {
 			options.saveOptions();
 
 			if (core.isLoggedIn && Options.playSounds) {
-				if (core.snd != null) {
-					snd = core.snd;
-				}
-
 				snd.playSound("/sounds/LOGOUT.WAV", true);
 			}
 

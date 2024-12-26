@@ -9,7 +9,7 @@ public class Core {
 	public String verNumber = "0.0.1";
 	public static boolean IS_DEBUG = false;
 
-	private MainWindow mainWin;
+	private MainWindow mainWind;
 	private Options options;
 	public Sound snd;
 	public MessageWindow messageWindow;
@@ -23,12 +23,15 @@ public class Core {
 	public int listeningPort = 1515;
 
 	public void init() {
-		snd = new Sound();
 		options = new Options();
 		options.readOptions();
 		userStatus = "OFFLINE";
 		isLoggedIn = false;
 		audioPeer = new AudioPeer();
+
+		if(Options.playSounds) {
+			initSound();
+		}
 	}
 
 	public void startCall() {
@@ -39,14 +42,14 @@ public class Core {
 		audioPeer.stop();
 	}
 
-	public Core(MainWindow mainWin) {
-		this.mainWin = mainWin;
+	public Core(MainWindow mainWind) {
+		this.mainWind = mainWind;
 	}
 
 	public void logIn() {
 		isLoggedIn = true;
 		userStatus = "ONLINE";
-		mainWin.logIn();
+		mainWind.logIn();
 
 		peer = new Peer(listeningPort, messageWindow);
 		peer.start();
@@ -59,6 +62,11 @@ public class Core {
 		}
 	}
 
+	public void initSound() {
+		snd = new Sound();
+		mainWind.snd = snd;
+	}
+	
 	public void showMessageWindow() {
 		if (messageWindow == null) {
 			messageWindow = new MessageWindow(this);

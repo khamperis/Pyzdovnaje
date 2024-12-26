@@ -9,12 +9,15 @@ import java.awt.event.WindowEvent;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 
+import in.priviec.core.Core;
 import in.priviec.core.Options;
 
 public class OptionsWindow {
 	public JFrame frame;
-
-	public OptionsWindow() {
+	private Core core;
+	
+	public OptionsWindow(Core core) {
+		this.core = core;
 		open();
 	}
 
@@ -35,6 +38,7 @@ public class OptionsWindow {
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				frame = null;
+				core.initSound();
 			}
 		});
 
