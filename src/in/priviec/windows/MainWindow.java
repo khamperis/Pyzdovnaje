@@ -55,8 +55,10 @@ public class MainWindow extends JFrame {
 	private ImageIcon homeIcon;
 	private ImageIcon contactsIcon;
 	private ImageIcon statusBarStatusIcon;
-	private ImageIcon startCallIcon;
-	private ImageIcon endCallIcon;
+	private ImageIcon startCallIconEnabled;
+	private ImageIcon endCallIconEnabled;
+	private ImageIcon startCallIconDisabled;
+	private ImageIcon endCallIconDisabled;
 	private Image statusTrayImage;
 	private JTabbedPane tabs = new JTabbedPane();
 	private JPanel loginPanel = new JPanel();
@@ -136,20 +138,20 @@ public class MainWindow extends JFrame {
 	}
 
 	private JPanel bottomPanel() {
-		startCallIcon = loadIcon("other/STARTCALL_DISABLED.png");
-		endCallIcon = loadIcon("other/ENDCALL_DISABLED.png");
-		startCall = new JLabel(startCallIcon);
-		endCall = new JLabel(endCallIcon);
+		startCallIconDisabled = loadIcon("other/STARTCALL_DISABLED.png");
+		endCallIconDisabled = loadIcon("other/ENDCALL_DISABLED.png");
+		startCallIconEnabled = loadIcon("other/STARTCALL_ENABLED.png");
+		endCallIconEnabled = loadIcon("other/ENDCALL_ENABLED.png");
+		startCall = new JLabel(startCallIconDisabled);
+		endCall = new JLabel(endCallIconDisabled);
 
 		startCall.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (core.isLoggedIn && !core.audioPeer.inCall) {
 					core.startCall();
-					endCallIcon = loadIcon("other/ENDCALL_ENABLED.png");
-					endCall.setIcon(endCallIcon);
-					startCallIcon = loadIcon("other/STARTCALL_DISABLED.png");
-					startCall.setIcon(startCallIcon);
+					endCall.setIcon(endCallIconEnabled);
+					startCall.setIcon(startCallIconDisabled);
 				}
 			}
 		});
@@ -159,10 +161,8 @@ public class MainWindow extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				if (core.isLoggedIn && core.audioPeer.inCall) {
 					core.endCall();
-					endCallIcon = loadIcon("other/ENDCALL_DISABLED.png");
-					endCall.setIcon(endCallIcon);
-					startCallIcon = loadIcon("other/STARTCALL_ENABLED.png");
-					startCall.setIcon(startCallIcon);
+					endCall.setIcon(endCallIconDisabled);
+					startCall.setIcon(startCallIconEnabled);
 				}
 			}
 		});
@@ -300,10 +300,8 @@ public class MainWindow extends JFrame {
 			tabs.removeTabAt(0);
 			updateStatusItems();
 
-			startCallIcon = loadIcon("other/STARTCALL_DISABLED.png");
-			endCallIcon = loadIcon("other/ENDCALL_DISABLED.png");
-			startCall.setIcon(startCallIcon);
-			endCall.setIcon(endCallIcon);
+			startCall.setIcon(startCallIconDisabled);
+			endCall.setIcon(endCallIconDisabled);
 
 			core.peer.stop();
 
@@ -407,8 +405,7 @@ public class MainWindow extends JFrame {
 			}
 		});
 
-		startCallIcon = loadIcon("other/STARTCALL_ENABLED.png");
-		startCall.setIcon(startCallIcon);
+		startCall.setIcon(startCallIconEnabled);
 
 		setTitle(String.format("Minto %s - Logged in to %s", core.verNumber, core.username));
 	}
