@@ -129,10 +129,7 @@ public class MainWindow extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				options.saveOptions();
-				if (core.isLoggedIn && Options.playSounds) {
-					snd.playSound("/sounds/LOGOUT.WAV", true);
-				}
+				exit();
 			}
 		});
 	}
@@ -261,9 +258,7 @@ public class MainWindow extends JFrame {
 		});
 
 		quit.addActionListener(e -> {
-			if (core.isLoggedIn)
-				logOff();
-			System.exit(0);
+			exit();
 		});
 
 		trayPopupMenu.add(changeStatus);
@@ -410,6 +405,16 @@ public class MainWindow extends JFrame {
 		setTitle(String.format("Minto %s - Logged in to %s", core.verNumber, core.username));
 	}
 
+	private void exit() {
+		dispose();
+		options.saveOptions();
+
+		if (core.isLoggedIn && Options.playSounds) {
+			snd.playSound("/sounds/LOGOUT.WAV", true);
+		}
+		System.exit(0);
+	}
+	
 	private ImageIcon loadIcon(String location) {
 		URL loadedImage = getClass().getClassLoader().getResource(location);
 		return new ImageIcon(loadedImage);
@@ -448,14 +453,7 @@ public class MainWindow extends JFrame {
 			}
 		}, true));
 		file.add(createMenuItem("Close", e -> {
-			dispose();
-			options.saveOptions();
-
-			if (core.isLoggedIn && Options.playSounds) {
-				snd.playSound("/sounds/LOGOUT.WAV", true);
-			}
-
-			System.exit(0);
+			exit();
 		}, true));
 
 		help.add(createMenuItem("Help", e -> {
