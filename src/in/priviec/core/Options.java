@@ -15,9 +15,9 @@ public class Options {
 			return "/home/" + user + "/.config/Pyzdovnaje/Pyzdovnaje.cfg";
 		} else if (System.getProperty("os.name").contains("Windows")) {
 			return "C:\\Users\\" + user + "\\AppData\\Roaming\\Pyzdovnaje\\Pyzdovnaje.cfg";
+		} else {
+			throw new UnsupportedOperationException();
 		}
-
-		throw new UnsupportedOperationException();
 	}
 
 	public void saveOptions() {

@@ -331,7 +331,7 @@ public class MainWindow extends JFrame {
 		JPanel homePanel = new JPanel();
 		JPanel contactsPanel = new JPanel();
 		JLabel contactsAvailable = new JLabel(contactsOnlineImage);
-		JLabel noContactsAvailable = new JLabel("You have no users in your contacts list.");
+//		JLabel noContactsAvailable = new JLabel("You have no users in your contacts list.");
 
 		tabs.removeTabAt(0);
 		tabs.addTab("Start", homePanel);
@@ -381,9 +381,9 @@ public class MainWindow extends JFrame {
 					int index = contactsList.locationToIndex(e.getPoint());
 
 					if (index >= 0) {
-						Object[] selectedContact = contacts[index];
-						String contactName = (String) selectedContact[0];
-						String contactStatus = (String) selectedContact[1];
+//						Object[] selectedContact = contacts[index];
+//						String contactName = (String) selectedContact[0];
+//						String contactStatus = (String) selectedContact[1];
 
 						core.showMessageWindow();
 					}

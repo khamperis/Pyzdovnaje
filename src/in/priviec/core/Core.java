@@ -29,7 +29,7 @@ public class Core {
 		isLoggedIn = false;
 		audioPeer = new AudioPeer();
 
-		if(Options.playSounds) {
+		if (Options.playSounds) {
 			initSound();
 		}
 	}
@@ -66,7 +66,7 @@ public class Core {
 		snd = new Sound();
 		mainWind.snd = snd;
 	}
-	
+
 	public void showMessageWindow() {
 		if (messageWindow == null) {
 			messageWindow = new MessageWindow(this);
