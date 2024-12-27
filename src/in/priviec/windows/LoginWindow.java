@@ -20,6 +20,7 @@ import in.priviec.core.Core;
 public class LoginWindow {
 	private Core core;
 	public JFrame frame;
+	@SuppressWarnings("unused")
 	private DialogWindow dialogWindow;
 	private JTextField userNameField;
 	private JTextField passwordField;
