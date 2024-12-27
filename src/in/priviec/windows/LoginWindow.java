@@ -99,8 +99,9 @@ public class LoginWindow {
 			core.username = username;
 			core.logIn();
 			frame.dispose();
-		} else if (dialogWindow == null) {
+		} else {
 			dialogWindow = new DialogWindow("Username too short or long or password incorrect!");
+			dialogWindow = null;
 		}
 	}
 }
