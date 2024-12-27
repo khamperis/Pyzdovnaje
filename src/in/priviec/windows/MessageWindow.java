@@ -81,7 +81,7 @@ public class MessageWindow {
 				if (keyCode == KeyEvent.VK_ENTER) {
 					msg = textField.getText().trim();
 
-					if (!msg.isEmpty() && msg != " ") {
+					if (!msg.isEmpty()) {
 						synchronized (this) {
 							core.peer.sendMsg(core.username + ": " + msg, "127.0.0.1", 1515);
 							if (frame.hasFocus())
