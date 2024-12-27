@@ -71,7 +71,7 @@ public class MainWindow extends JFrame {
 	private Core core;
 	private TrayIcon trayIcon;
 	private LoginWindow loginWin;
-	private AboutWindow aboutWindow = new AboutWindow();
+	private AboutWindow aboutWindow;
 	private OptionsWindow optionsWindow;
 	private JMenu changeStatus;
 	public Sound snd;
@@ -495,7 +495,12 @@ public class MainWindow extends JFrame {
 			}
 		}, true));
 		help.addSeparator();
-		help.add(createMenuItem("Help", e -> aboutWindow.open(), true));
+		help.add(createMenuItem("Help", e -> {
+			if(aboutWindow == null) {
+				aboutWindow = new AboutWindow();
+			}
+			aboutWindow.open();
+		}, true));
 
 		menubar.add(file);
 		menubar.add(help);
