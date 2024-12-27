@@ -86,7 +86,7 @@ public class MessageWindow {
 							core.peer.sendMsg(core.username + ": " + msg, "127.0.0.1", 1515);
 							if (frame.hasFocus())
 								appendMessage(core.username + ": " + textField.getText(), false);
-							else 
+							else
 								appendMessage(core.username + ": " + textField.getText(), Options.playSounds);
 						}
 						textField.setText("");
@@ -94,7 +94,7 @@ public class MessageWindow {
 				}
 			}
 		});
-		
+
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -108,7 +108,7 @@ public class MessageWindow {
 		frame.dispose();
 		frame = null;
 	}
-	
+
 	public void appendMessage(String message, boolean playSound) {
 		textArea.append(message + "\n");
 		textArea.setCaretPosition(textArea.getDocument().getLength());

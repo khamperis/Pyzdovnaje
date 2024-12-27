@@ -39,7 +39,7 @@ public class Options {
 	public void readOptions() {
 		File file = new File(getPathForOS());
 		if (!file.exists()) {
-			if(Core.IS_DEBUG)
+			if (Core.IS_DEBUG)
 				System.out.println("Config file has not been created yet!");
 			return;
 		}

@@ -72,9 +72,9 @@ public class MainWindow extends JFrame {
 	private JLabel statusIconLabel;
 	private Core core;
 	private TrayIcon trayIcon;
-	private LoginWindow loginWin;
-	private AboutWindow aboutWindow;
-	private OptionsWindow optionsWindow;
+	private LoginWindow loginWind;
+	private AboutWindow aboutWind;
+	private OptionsWindow optionsWind;
 	private JMenu changeStatus;
 	public Sound snd;
 
@@ -100,8 +100,8 @@ public class MainWindow extends JFrame {
 		loginLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (loginWin == null || loginWin.frame == null) {
-					loginWin = new LoginWindow(core);
+				if (loginWind == null || loginWind.frame == null) {
+					loginWind = new LoginWindow(core);
 				}
 			}
 		});
@@ -318,9 +318,9 @@ public class MainWindow extends JFrame {
 			core.messageWindow = null;
 		}
 
-		if (loginWin != null && loginWin.frame != null) {
-			loginWin.frame.dispose();
-			loginWin = null;
+		if (loginWind != null && loginWind.frame != null) {
+			loginWind.frame.dispose();
+			loginWind = null;
 		}
 	}
 
@@ -414,7 +414,7 @@ public class MainWindow extends JFrame {
 		}
 		System.exit(0);
 	}
-	
+
 	private ImageIcon loadIcon(String location) {
 		URL loadedImage = getClass().getClassLoader().getResource(location);
 		return new ImageIcon(loadedImage);
@@ -448,8 +448,8 @@ public class MainWindow extends JFrame {
 		file.add(createMenuItem("Log Off", e -> logOff(), true));
 		file.addSeparator();
 		file.add(createMenuItem("Options...", e -> {
-			if (optionsWindow == null || optionsWindow.frame == null) {
-				optionsWindow = new OptionsWindow(core);
+			if (optionsWind == null || optionsWind.frame == null) {
+				optionsWind = new OptionsWindow(core);
 			}
 		}, true));
 		file.add(createMenuItem("Close", e -> {
@@ -491,10 +491,10 @@ public class MainWindow extends JFrame {
 		}, true));
 		help.addSeparator();
 		help.add(createMenuItem("Help", e -> {
-			if(aboutWindow == null) {
-				aboutWindow = new AboutWindow();
+			if (aboutWind == null) {
+				aboutWind = new AboutWindow();
 			}
-			aboutWindow.open();
+			aboutWind.open();
 		}, true));
 
 		menubar.add(file);
