@@ -514,7 +514,7 @@ public class MainWindow extends JFrame {
 		JToolBar toolbar = new JToolBar();
 		toolbar.setFloatable(false);
 
-		int[] spacingSizes = { 2, 5, 6, 4, 5, 6, 3, 6, 4, 6 };
+		byte[] spacingSizes = { 2, 5, 6, 4, 5, 6, 3, 6, 4, 6 };
 		String[] menuBarIcons = { "menubar/INFO_DISABLED.png", "menubar/ADDCONTACT_DISABLED.png",
 				"menubar/REMOVECONTACT_DISABLED.png", "menubar/IM_DISABLED.png", "menubar/STARTCONFERENCE_DISABLED.png",
 				"menubar/UNKNOWN.png", "menubar/MICROPHONE_DISABLED.png", "menubar/PAUSECALL_DISABLED.png",

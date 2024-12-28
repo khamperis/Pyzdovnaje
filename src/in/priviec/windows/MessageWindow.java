@@ -77,8 +77,7 @@ public class MessageWindow {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				String msg;
-				int keyCode = e.getKeyCode();
-				if (keyCode == KeyEvent.VK_ENTER) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					msg = textField.getText().trim();
 
 					if (!msg.isEmpty()) {
