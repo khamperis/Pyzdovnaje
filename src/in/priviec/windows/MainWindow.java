@@ -458,16 +458,16 @@ public class MainWindow extends JFrame {
 
 		help.add(createMenuItem("Help", e -> {
 			try {
-				URI reportProblem = new URI("https://github.com/khamperis/Pyzdovnaje");
-				Desktop.getDesktop().browse(reportProblem);
+				URI help1 = new URI("https://github.com/khamperis/Pyzdovnaje");
+				Desktop.getDesktop().browse(help1);
 			} catch (URISyntaxException | IOException e1) {
 				e1.printStackTrace();
 			}
 		}, true));
 		help.add(createMenuItem("FAQ", e -> {
 			try {
-				URI reportProblem = new URI("https://github.com/khamperis/Pyzdovnaje/discussions");
-				Desktop.getDesktop().browse(reportProblem);
+				URI faq = new URI("https://github.com/khamperis/Pyzdovnaje/discussions");
+				Desktop.getDesktop().browse(faq);
 			} catch (URISyntaxException | IOException e1) {
 				e1.printStackTrace();
 			}
@@ -475,8 +475,8 @@ public class MainWindow extends JFrame {
 		help.addSeparator();
 		help.add(createMenuItem("Check for Update", e -> {
 			try {
-				URI reportProblem = new URI("https://github.com/khamperis/Pyzdovnaje/releases");
-				Desktop.getDesktop().browse(reportProblem);
+				URI checkForUpdates = new URI("https://github.com/khamperis/Pyzdovnaje/releases");
+				Desktop.getDesktop().browse(checkForUpdates);
 			} catch (URISyntaxException | IOException e1) {
 				e1.printStackTrace();
 			}
@@ -490,7 +490,7 @@ public class MainWindow extends JFrame {
 			}
 		}, true));
 		help.addSeparator();
-		help.add(createMenuItem("Help", e -> {
+		help.add(createMenuItem("About", e -> {
 			if (aboutWind == null) {
 				aboutWind = new AboutWindow();
 			}
