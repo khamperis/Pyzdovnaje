@@ -12,7 +12,7 @@ public class Core {
 	private MainWindow mainWind;
 	private Options options;
 	public Sound snd;
-	public MessageWindow messageWindow;
+	public MessageWindow messageWind;
 
 	public String userStatus;
 	public boolean isLoggedIn;
@@ -51,7 +51,7 @@ public class Core {
 		userStatus = "ONLINE";
 		mainWind.logIn();
 
-		peer = new Peer(listeningPort, messageWindow);
+		peer = new Peer(listeningPort);
 		peer.start();
 
 		if (IS_DEBUG)
@@ -68,9 +68,9 @@ public class Core {
 	}
 
 	public void showMessageWindow() {
-		if (messageWindow == null) {
-			messageWindow = new MessageWindow(this);
-			peer.setMsgWindow(messageWindow);
+		if (messageWind == null) {
+			messageWind = new MessageWindow(this);
+			peer.setMsgWindow(messageWind);
 		}
 	}
 }

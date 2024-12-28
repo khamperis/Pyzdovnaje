@@ -103,7 +103,7 @@ public class MessageWindow {
 	}
 
 	private void uninitialize() {
-		core.messageWindow = null;
+		core.messageWind = null;
 		frame.dispose();
 		frame = null;
 	}

@@ -21,7 +21,7 @@ public class LoginWindow {
 	private Core core;
 	public JFrame frame;
 	@SuppressWarnings("unused")
-	private DialogWindow dialogWindow;
+	private DialogWindow dialogWind;
 	private JTextField userNameField;
 	private JTextField passwordField;
 
@@ -101,8 +101,8 @@ public class LoginWindow {
 			core.logIn();
 			frame.dispose();
 		} else {
-			dialogWindow = new DialogWindow("Username too short or long or password incorrect!");
-			dialogWindow = null;
+			dialogWind = new DialogWindow("Username too short or long or password incorrect!");
+			dialogWind = null;
 		}
 	}
 }

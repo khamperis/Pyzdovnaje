@@ -15,7 +15,7 @@ import in.priviec.windows.MessageWindow;
 
 public class Peer {
 	private int port;
-	private MessageWindow messageWindow;
+	private MessageWindow messageWind;
 	private ServerSocket servSock;
 
 	private Thread msgThread;
@@ -24,9 +24,8 @@ public class Peer {
 
 	private List<ClientHandler> clientHandlers = new ArrayList<>();
 
-	public Peer(int port, MessageWindow messageWindow) {
+	public Peer(int port) {
 		this.port = port;
-		this.messageWindow = messageWindow;
 	}
 
 	public void start() {
@@ -93,8 +92,8 @@ public class Peer {
 		}
 	}
 
-	public void setMsgWindow(MessageWindow messageWindow) {
-		this.messageWindow = messageWindow;
+	public void setMsgWindow(MessageWindow messageWind) {
+		this.messageWind = messageWind;
 	}
 
 	private class ClientHandler implements Runnable {
@@ -111,7 +110,7 @@ public class Peer {
 				while (running && (msg = input.readLine()) != null) {
 					String msgTemp = msg;
 
-					SwingUtilities.invokeLater(() -> messageWindow.appendMessage(msgTemp, true));
+					SwingUtilities.invokeLater(() -> messageWind.appendMessage(msgTemp, true));
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

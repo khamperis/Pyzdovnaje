@@ -313,9 +313,9 @@ public class MainWindow extends JFrame {
 	}
 
 	private void disposeAllWindows() {
-		if (core.messageWindow != null && core.messageWindow.frame != null) {
-			core.messageWindow.frame.dispose();
-			core.messageWindow = null;
+		if (core.messageWind != null && core.messageWind.frame != null) {
+			core.messageWind.frame.dispose();
+			core.messageWind = null;
 		}
 
 		if (loginWind != null && loginWind.frame != null) {
