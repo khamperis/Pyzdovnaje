@@ -12,7 +12,7 @@ public class AboutWindow extends Canvas {
 	public JFrame frame;
 
 	public void open() {
-		frame = new JFrame("About Minto");
+		frame = new JFrame("About Pyzdovnaje");
 		AboutWindow aw = new AboutWindow();
 		frame.setUndecorated(true);
 		frame.add(aw);

@@ -31,7 +31,7 @@ public class LoginWindow {
 	}
 
 	public void open() {
-		frame = new JFrame("Minto - Log in to Minto");
+		frame = new JFrame("Pyzdovnaje - Log in to Pyzdovnaje");
 		userNameField = new JTextField();
 		passwordField = new JTextField();
 

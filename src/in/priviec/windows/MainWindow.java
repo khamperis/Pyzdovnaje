@@ -106,7 +106,7 @@ public class MainWindow extends JFrame {
 			}
 		});
 
-		setTitle(String.format("Minto %s", core.verNumber));
+		setTitle(String.format("Pyzdovnaje %s", core.verNumber));
 		topPanel.setLayout(new BorderLayout());
 		topPanel.add(createMenuBar(), BorderLayout.NORTH);
 		topPanel.add(createToolBar(), BorderLayout.NORTH);
@@ -302,7 +302,7 @@ public class MainWindow extends JFrame {
 
 			disposeAllWindows();
 
-			setTitle("Minto");
+			setTitle(String.format("Pyzdovnaje %s", core.verNumber));
 			updateStatusItems();
 			if (Options.playSounds) {
 				snd.playSound("/sounds/LOGOUT.WAV", false);
@@ -402,7 +402,7 @@ public class MainWindow extends JFrame {
 
 		startCall.setIcon(startCallIconEnabled);
 
-		setTitle(String.format("Minto %s - Logged in to %s", core.verNumber, core.username));
+		setTitle(String.format("Pyzdovnaje %s - Logged in to %s", core.verNumber, core.username));
 	}
 
 	private void exit() {

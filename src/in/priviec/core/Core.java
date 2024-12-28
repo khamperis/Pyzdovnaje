@@ -6,7 +6,7 @@ import in.priviec.windows.MainWindow;
 import in.priviec.windows.MessageWindow;
 
 public class Core {
-	public String verNumber = "0.0.1";
+	public String verNumber = "0.0.1a";
 	public static boolean IS_DEBUG = false;
 
 	private MainWindow mainWind;
