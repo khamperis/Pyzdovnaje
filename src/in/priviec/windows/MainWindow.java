@@ -406,6 +406,7 @@ public class MainWindow extends JFrame {
 	}
 
 	private void exit() {
+		disposeAllWindows();
 		dispose();
 		options.saveOptions();
 
