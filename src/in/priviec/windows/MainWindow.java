@@ -216,7 +216,8 @@ public class MainWindow extends JFrame {
 		}
 		SystemTray tray = SystemTray.getSystemTray();
 
-		setTrayIconImage();
+		statusTrayImage = Toolkit.getDefaultToolkit()
+				.getImage(getClass().getClassLoader().getResource("status/" + core.userStatus + ".png"));
 
 		PopupMenu trayPopupMenu = new PopupMenu();
 
@@ -278,11 +279,6 @@ public class MainWindow extends JFrame {
 				e.printStackTrace();
 			}
 		}
-	}
-
-	private void setTrayIconImage() {
-		statusTrayImage = Toolkit.getDefaultToolkit()
-				.getImage(getClass().getClassLoader().getResource("status/" + core.userStatus + ".png"));
 	}
 
 	public void logOff() {
