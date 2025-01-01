@@ -211,10 +211,10 @@ public class MainWindow extends JFrame {
 	}
 
 	private void updateSystemTray() {
-		SystemTray tray = SystemTray.getSystemTray();
 		if (!SystemTray.isSupported()) {
 			return;
 		}
+		SystemTray tray = SystemTray.getSystemTray();
 
 		setTrayIconImage();
 
