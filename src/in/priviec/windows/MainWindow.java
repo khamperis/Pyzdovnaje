@@ -210,7 +210,7 @@ public class MainWindow extends JFrame {
 		}
 	}
 
-	private void updateSystemTray() {
+	public void updateSystemTray() {
 		if (!SystemTray.isSupported()) {
 			return;
 		}

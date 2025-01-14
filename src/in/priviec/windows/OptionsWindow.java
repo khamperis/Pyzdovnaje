@@ -40,6 +40,8 @@ public class OptionsWindow {
 				frame = null;
 				if (Options.playSounds)
 					core.initSound();
+				if (Options.createTrayIcon)
+					core.mainWind.updateSystemTray();
 			}
 		});
 

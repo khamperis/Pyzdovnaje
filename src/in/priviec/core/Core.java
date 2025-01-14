@@ -9,8 +9,8 @@ public class Core {
 	public String verNumber = "0.0.1a";
 	public static boolean IS_DEBUG = false;
 
-	private MainWindow mainWind;
-	private Options options;
+	public MainWindow mainWind;
+	public Options options;
 	public Sound snd;
 	public MessageWindow messageWind;
 
