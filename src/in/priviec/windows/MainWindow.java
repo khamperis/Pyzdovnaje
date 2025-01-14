@@ -203,11 +203,7 @@ public class MainWindow extends JFrame {
 			updateSystemTray();
 		}
 
-		if (core.isLoggedIn) {
-			changeStatus.setEnabled(true);
-		} else {
-			changeStatus.setEnabled(false);
-		}
+		changeStatus.setEnabled(core.isLoggedIn);
 	}
 
 	public void updateSystemTray() {
