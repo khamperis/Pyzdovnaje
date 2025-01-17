@@ -398,6 +398,8 @@ public class MainWindow extends JFrame {
 	}
 
 	private void exit() {
+		if (core.audioPeer.inCall)
+			core.endCall();
 		disposeAllWindows();
 		dispose();
 		options.saveOptions();
