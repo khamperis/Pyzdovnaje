@@ -27,7 +27,6 @@ public class Core {
 		options.readOptions();
 		userStatus = "OFFLINE";
 		isLoggedIn = false;
-		audioPeer = new AudioPeer();
 
 		if (Options.playSounds) {
 			initSound();
@@ -51,6 +50,7 @@ public class Core {
 		userStatus = "ONLINE";
 		mainWind.logIn();
 
+		audioPeer = new AudioPeer();
 		peer = new Peer(listeningPort);
 		peer.start();
 
